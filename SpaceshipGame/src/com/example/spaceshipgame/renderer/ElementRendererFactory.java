@@ -13,9 +13,9 @@ public final class ElementRendererFactory {
     }
     
 	public static ElementRenderer getElementRender (Element element) {
-		if (element.getClass() == Missle.class)
+		if (element instanceof Missle)
 			return missleRenderer;
-		else if (element.getClass() == Spaceship.class)
+		else if (element instanceof Spaceship)
 			return spaceshipRenderer;
 		else
 			return elementRenderer;

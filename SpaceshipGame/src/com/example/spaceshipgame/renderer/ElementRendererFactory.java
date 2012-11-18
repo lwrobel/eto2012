@@ -1,19 +1,19 @@
 package com.example.spaceshipgame.renderer;
 
 import com.example.spaceshipgame.model.Element;
-import com.example.spaceshipgame.model.Missle;
+import com.example.spaceshipgame.model.Missile;
 import com.example.spaceshipgame.model.Spaceship;
 
 public final class ElementRendererFactory {
-    private final static MissleRenderer missleRenderer = new MissleRenderer();
+    private final static MissileRenderer missleRenderer = new MissileRenderer();
     private final static SpaceshipRenderer spaceshipRenderer = new SpaceshipRenderer();
     private final static ElementRenderer elementRenderer = new ElementRenderer();
     
     private ElementRendererFactory() {
     }
     
-	public static ElementRenderer getElementRender (Element element) {
-		if (element instanceof Missle)
+	public static ElementRenderer getElementRenderer (Element element) {
+		if (element instanceof Missile)
 			return missleRenderer;
 		else if (element instanceof Spaceship)
 			return spaceshipRenderer;

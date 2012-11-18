@@ -1,5 +1,7 @@
 package com.example.spaceshipgame.model;
 
+import java.util.ArrayList;
+
 
 /**
  * The Class Player.
@@ -8,8 +10,11 @@ package com.example.spaceshipgame.model;
  * I have just needed it for GameState.
  */
 public class Player {
-	public Element[] elements;
+	public ArrayList <Element> elements = new ArrayList <Element>();
 	
 	public Player(){
+       	elements.add(new Spaceship());
+       	elements.add(new Missile());
+       	elements.add(new Missile());
 	}
 }

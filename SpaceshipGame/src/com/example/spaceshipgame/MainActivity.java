@@ -1,10 +1,6 @@
 package com.example.spaceshipgame;
 
-import java.util.ArrayList;
-
-import com.example.spaceshipgame.model.Element;
-import com.example.spaceshipgame.model.Missle;
-import com.example.spaceshipgame.model.Spaceship;
+import com.example.spaceshipgame.controller.Controller;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -17,16 +13,10 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        ArrayList <Element> elementList = new ArrayList <Element>();
-        for (int i=1; i<=10; ++i) 
-        	elementList.add(new Missle());
-        
-        for (int i=1; i<=5; ++i)
-        	elementList.add(new Spaceship());
-        
+        Controller controller = new Controller(this);
         DrawView drawView = new DrawView(this);
-        drawView.setElementList(elementList);
         drawView.setBackgroundColor(Color.WHITE);
+        drawView.setController(controller);
         setContentView(drawView);      
     }
 

@@ -8,17 +8,17 @@ import android.graphics.Paint;
 
 import com.example.spaceshipgame.R;
 import com.example.spaceshipgame.model.Element;
-import com.example.spaceshipgame.model.Spaceship;
+import com.example.spaceshipgame.model.Missile;
 
-public class SpaceshipRenderer extends ElementRenderer {
+public class MissileRenderer extends ElementRenderer {
 	Paint paint = new Paint();
 	
 	@Override
 	public void render(Canvas canvas, Element element, Context context) {
 		super.render(canvas, element, context);
-		Spaceship spaceship = (Spaceship) element;
+		Missile missle = (Missile) element;
 
-        Bitmap kangoo = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceship);
-        canvas.drawBitmap(kangoo, spaceship.getX(), spaceship.getY(), null);       
+        Bitmap kangoo = BitmapFactory.decodeResource(context.getResources(), R.drawable.missile);
+        canvas.drawBitmap(kangoo, missle.getX(), missle.getY(), null);       
 	}
 }

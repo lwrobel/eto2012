@@ -5,5 +5,5 @@ package com.example.spaceshipgame.model;
  * @author Aleksandra Spyra
  */
 public class GameState {
-	Player[] players;
+	public Player[] players;
 }

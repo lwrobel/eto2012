@@ -8,5 +8,5 @@ package com.example.spaceshipgame.model;
  * I have just needed it for GameState.
  */
 public class Player {
-
+	public Element[] elements;
 }

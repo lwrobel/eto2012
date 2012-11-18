@@ -1,9 +1,9 @@
 package com.example.spaceshipgame.model;
 
-public class Missle extends Element {
+public class Missile extends Element {
 	private int radius;
 	
-	public Missle () {
+	public Missile () {
 		radius = r.nextInt(20)+10;
 	}
 	

@@ -7,6 +7,9 @@ import com.example.spaceshipgame.model.*;
 
 public class MainRenderer {
 	
+	public MainRenderer(){
+	}
+	
 	public void render(Canvas canvas, GameState gameState){
 		for(Player player : gameState.players){
 			for(Element element: player.elements){

@@ -9,4 +9,7 @@ package com.example.spaceshipgame.model;
  */
 public class Player {
 	public Element[] elements;
+	
+	public Player(){
+	}
 }

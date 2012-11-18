@@ -6,4 +6,7 @@ package com.example.spaceshipgame.model;
  */
 public class GameState {
 	public Player[] players;
+	
+	public GameState(){
+	}
 }

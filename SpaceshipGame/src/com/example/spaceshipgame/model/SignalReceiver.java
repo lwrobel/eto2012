@@ -10,4 +10,10 @@ package com.example.spaceshipgame.model;
  */
 
 public class SignalReceiver {
+	public SignalReceiver(){
+	}
+	
+	public Object getSignal(){
+		return new Object();
+	}
 }

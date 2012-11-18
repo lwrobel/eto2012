@@ -16,6 +16,6 @@ public class MissleRenderer extends ElementRenderer {
 		Missle missle = (Missle) element;
 		paint.setAntiAlias(true);
 		paint.setColor(Color.RED);
-	    canvas.drawCircle(missle.getX(), missle.getY(), missle.getRadius(), paint);
+	    canvas.drawCircle(missle.getPosition().getX(), missle.getPosition().getY(), missle.getRadius(), paint);
 	}
 }

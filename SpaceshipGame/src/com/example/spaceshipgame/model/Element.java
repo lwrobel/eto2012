@@ -3,19 +3,25 @@ package com.example.spaceshipgame.model;
 import java.util.Random;
 
 public class Element {
-	private int x, y; //it should be vector soon...
+	private Vector position;
+	private Vector velocity;
+	
 	Random r = new Random();
 	
 	public Element () {
-		x=r.nextInt(300)+10;
-		y=r.nextInt(300)+10;
+		position = new Vector(r.nextInt(300)+10, r.nextInt(300)+10);
 	}
 	
-	public int getX() {
-		return x;
+	public Element(Vector position) {
+		this.position = new Vector(position);  
 	}
 	
-	public int getY() {
-		return y;
+	public Vector getPosition() {
+		return position;
+	}
+	
+	public void move(Vector vector) {
+		position.add(vector);
 	}
 }
+

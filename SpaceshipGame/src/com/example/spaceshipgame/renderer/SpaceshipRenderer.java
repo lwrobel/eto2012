@@ -17,7 +17,7 @@ public class SpaceshipRenderer extends ElementRenderer {
 		Spaceship spaceship = (Spaceship) element;
 		paint.setAntiAlias(true);
 		paint.setColor(Color.BLUE);
-	    Rect rectangle = new Rect(spaceship.getX(), spaceship.getY(), spaceship.getX()+spaceship.getWidth(), spaceship.getY()+spaceship.getHeigt());
+	    Rect rectangle = new Rect(spaceship.getPosition().getX(), spaceship.getPosition().getY(), spaceship.getPosition().getX()+spaceship.getWidth(), spaceship.getPosition().getY()+spaceship.getHeigt());
 	    canvas.drawRect(rectangle, paint);
 	}
 }

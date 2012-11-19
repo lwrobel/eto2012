@@ -8,17 +8,17 @@ import android.view.View;
 
 public class DrawView extends View {
 	private Controller controller;
-	
+
 	public DrawView(Context context) {
-        super(context);            
-    }
-	
-	public void setController(Controller controller_) {
-		controller=controller_;	
+		super(context);
 	}
-	
-    @Override
-    public void onDraw(Canvas canvas) {
-    	controller.redraw(canvas);
-    }
+
+	public void setController(Controller controller_) {
+		controller = controller_;
+	}
+
+	@Override
+	public void onDraw(Canvas canvas) {
+		controller.redraw(canvas);
+	}
 }

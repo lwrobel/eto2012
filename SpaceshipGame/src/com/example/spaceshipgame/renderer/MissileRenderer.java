@@ -16,9 +16,9 @@ public class MissileRenderer extends ElementRenderer {
 	@Override
 	public void render(Canvas canvas, Element element, Context context) {
 		super.render(canvas, element, context);
-		Missile missle = (Missile) element;
+		Missile missile = (Missile) element;
 
         Bitmap kangoo = BitmapFactory.decodeResource(context.getResources(), R.drawable.missile);
-        canvas.drawBitmap(kangoo, missle.getPosition().getX(), missle.getPosition().getY(), null);       
+        canvas.drawBitmap(kangoo, missile.getPosition().getX(), missile.getPosition().getY(), null);       
 	}
 }

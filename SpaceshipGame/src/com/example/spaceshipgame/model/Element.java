@@ -9,7 +9,7 @@ public class Element {
 	Random r = new Random();
 	
 	public Element () {
-		position = new Vector(r.nextInt(300)+10, r.nextInt(300)+10);
+		position = new Vector(r.nextInt(300) + 10, r.nextInt(300) + 10);
 	}
 	
 	public Element(Vector position) {

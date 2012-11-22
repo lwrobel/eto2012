@@ -7,6 +7,6 @@ import com.example.spaceshipgame.model.Element;
 
 public class ElementRenderer {
 	
-	public void render (Canvas canvas, Element element, Context context) {
+	public void render(Canvas canvas, Element element, Context context) {
 	}
 }

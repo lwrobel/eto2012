@@ -9,7 +9,7 @@ public class MainRenderer {
 	Context context;
 	
 	public MainRenderer(Context context_) {
-		context=context_;
+		context =  context_;
 	}
 	
 	public void render(Canvas canvas, GameState gameState) {

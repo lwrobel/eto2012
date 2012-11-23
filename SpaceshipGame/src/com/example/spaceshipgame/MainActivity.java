@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.Menu;
+import android.widget.FrameLayout;
 
 public class MainActivity extends Activity {
 
@@ -17,7 +18,9 @@ public class MainActivity extends Activity {
         DrawView drawView = new DrawView(this);
         drawView.setBackgroundColor(Color.WHITE);
         drawView.setController(controller);
-        setContentView(drawView);      
+        setContentView(R.layout.activity_main);
+        FrameLayout upper = (FrameLayout) findViewById(R.id.frameLayout2);
+        upper.addView(drawView);
     }
 
     @Override

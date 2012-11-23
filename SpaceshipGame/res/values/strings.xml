@@ -4,5 +4,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="button_up">up</string>
+    <string name="button_left">left</string>
+    <string name="button_right">right</string>
+    <string name="button_down">down</string>
 
 </resources>

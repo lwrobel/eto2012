@@ -8,5 +8,6 @@
     <string name="button_left">left</string>
     <string name="button_right">right</string>
     <string name="button_down">down</string>
+    <string name="button_attack">attack</string>
 
 </resources>

@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/rightButton"
+                android:layout_below="@+id/upButton"
                 android:layout_marginRight="5dp"
                 android:contentDescription="@string/button_down"
                 android:src="@drawable/down" />
@@ -56,14 +56,23 @@
                 android:id="@+id/upButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/rightButton"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:contentDescription="@string/button_up"
                 android:src="@drawable/up" />
 
-        </RelativeLayout>
+            <ImageButton
+                android:id="@+id/attackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/upButton"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:contentDescription="@string/button_attack"
+                android:src="@drawable/attack" />
 
+        </RelativeLayout>
     </FrameLayout>
 
 </RelativeLayout>

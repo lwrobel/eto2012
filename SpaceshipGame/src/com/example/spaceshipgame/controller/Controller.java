@@ -1,31 +1,67 @@
 package com.example.spaceshipgame.controller;
 
-
 import com.example.spaceshipgame.model.*;
 import com.example.spaceshipgame.renderer.*;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.widget.Toast;
 
 public class Controller {
 	private MainRenderer mainRenderer;
 	private SignalReceiver signalReceiver;
 	private GameState gameState;
-	
-	public Controller(Context context) {
-		mainRenderer = new MainRenderer(context);
-		signalReceiver = new SignalReceiver();
+	private Activity gameActivity;
+
+	public Controller(Activity activity) {
+		gameActivity = activity;
+	}
+
+	public void init() {
+		mainRenderer = new MainRenderer(getGameContext());
 		gameState = new GameState();
+		signalReceiver = new SignalReceiver(this);
+		signalReceiver.init();
 	}
-	
-	private void interpretSignal(Object ob) {
+
+	public Activity getGameActivity() {
+		return gameActivity;
 	}
-	
+
+	public Context getGameContext() {
+		return gameActivity.getApplicationContext();
+	}
+
 	public void changeState() {
-		interpretSignal(signalReceiver.getSignal());
 	}
-	
-	public void redraw (Canvas canvas) {
+
+	public void redraw(Canvas canvas) {
 		mainRenderer.render(canvas, gameState);
+	}
+
+	private void showToastMessage(String text) {
+		Toast toast = Toast.makeText(getGameContext(), text, Toast.LENGTH_SHORT);
+		toast.show();
+	}
+
+	public void onLeftClicked() {
+		showToastMessage("left");
+	}
+
+	public void onRightClicked() {
+		showToastMessage("right");
+	}
+
+	public void onUpClicked() {
+		showToastMessage("up");
+	}
+
+	public void onDownClicked() {
+		showToastMessage("down");
+	}
+
+	public void onAttackClicked() {
+		showToastMessage("attack");
 	}
 }

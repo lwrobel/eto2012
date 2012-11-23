@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         FrameLayout upper = (FrameLayout) findViewById(R.id.frameLayout2);
         upper.addView(drawView);
+        controller.init();
     }
 
     @Override

@@ -46,10 +46,12 @@ public class Controller {
 	}
 
 	public void onLeftClicked() {
+		gameState.currentInstancePlayer.getSpaceship().rotate(1);
 		showToastMessage("left");
 	}
 
 	public void onRightClicked() {
+		gameState.currentInstancePlayer.getSpaceship().rotate(-1);
 		showToastMessage("right");
 	}
 

@@ -8,9 +8,13 @@ import java.util.ArrayList;
  */
 public class GameState {
 	public ArrayList <Player> players = new ArrayList <Player> ();
+	public Player currentInstancePlayer;
 	
 	public GameState(){
-		for (int i=0; i<5; ++i)
+		currentInstancePlayer = new Player();
+		players.add(currentInstancePlayer);
+		
+		for (int i=0; i<2; ++i)
 			players.add(new Player());
 	}
 }

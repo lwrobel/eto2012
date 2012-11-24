@@ -18,6 +18,10 @@ public class SpaceshipRenderer extends ElementRenderer {
 		super.render(canvas, element, context);
 		Spaceship spaceship = (Spaceship) element;
         Bitmap kangoo = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceship);
+        
+        canvas.save();
+        canvas.rotate(spaceship.getRotation(), spaceship.getPosition().getX() + (kangoo.getScaledWidth(canvas) / 2), spaceship.getPosition().getY() + (kangoo.getScaledHeight(canvas) / 2));
         canvas.drawBitmap(kangoo, spaceship.getPosition().getX(), spaceship.getPosition().getY(), null);       
+        canvas.restore();
 	}
 }

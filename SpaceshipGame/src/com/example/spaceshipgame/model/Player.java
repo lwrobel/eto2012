@@ -11,10 +11,16 @@ import java.util.ArrayList;
  */
 public class Player {
 	public ArrayList <Element> elements = new ArrayList <Element>();
+	public Spaceship spaceship;
 	
 	public Player(){
-       	elements.add(new Spaceship());
+		spaceship = new Spaceship();
+		
+       	elements.add(spaceship);
        	elements.add(new Missile());
-       	elements.add(new Missile());
+	}
+	
+	public Spaceship getSpaceship() {
+		return spaceship;
 	}
 }

@@ -10,6 +10,7 @@ public class Element {
 	
 	public Element () {
 		position = new Vector(r.nextInt(300) + 10, r.nextInt(300) + 10);
+		velocity = new Vector(5, 100.0);
 	}
 	
 	public Element(Vector position) {
@@ -20,8 +21,20 @@ public class Element {
 		return position;
 	}
 	
+	public Vector getVelocity() {
+		return velocity;
+	}
+	
+	public float getRotation() {
+		return velocity.getAngle();
+	}
+	
 	public void move(Vector vector) {
 		position.add(vector);
+	}
+	
+	public void rotate(double angle) {
+
 	}
 }
 

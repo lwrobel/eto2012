@@ -9,6 +9,13 @@ public class Vector {
 		this.y = y;
 	}
 	
+	public Vector(int angle, double value) {
+		double angleInRadius = angle * (Math.PI / (double)180);
+		
+		x = (int) (value * Math.cos( angleInRadius ) );
+		y = (int) (value * Math.sin( angleInRadius ) );
+	}
+	
 	public Vector(Vector vector) {
 		set(vector);
 	}
@@ -38,4 +45,14 @@ public class Vector {
 	public int getY() {
 		return y;
 	}
+	
+	public int getAngle() {
+		return (int) (Math.atan(y/(double)x) * 180 / Math.PI);
+	}	
+	
+	public void rotate(double angle) {
+		// TODO
+	}
+	
+	
 }

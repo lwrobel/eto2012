@@ -33,8 +33,20 @@ public class Element {
 		position.add(vector);
 	}
 	
-	public void rotate(double angle) {
-
+	public void moveAhead() {
+		position.add(velocity);
+	}
+	
+	public void moveBack() {
+		position.sub(velocity);
+	}
+	
+	public void rotateLeft(double angle) {
+		velocity.rotateLeft((float)angle);
+	}
+	
+	public void rotateRight(double angle) {
+		velocity.rotateRight((float)angle);
 	}
 }
 

@@ -16,6 +16,10 @@ public class Vector {
 		y = (float) (value * Math.sin( angleInRadius ) );
 	}
 	
+	public Vector(float angle) {
+		this(angle,(float)10.0);
+	}
+	
 	public Vector(Vector vector) {
 		set(vector);
 	}
@@ -24,9 +28,18 @@ public class Vector {
 		add(vector.x, vector.y);
 	}
 	
+	public void sub(Vector vector) {
+		sub(vector.x, vector.y);
+	}
+	
 	public void add(float x, float y) {
 		this.x += x;
 		this.y += y;
+	}
+	
+	public void sub(float x, float y) {
+		this.x -= x;
+		this.y -= y;
 	}
 	
 	public void set(Vector vector) {
@@ -69,9 +82,17 @@ public class Vector {
 		return 270;
 	}	
 	
-	public void rotate(double angle) {
-		// TODO
+	public double getValue() {
+		return Math.sqrt(x*x + y*y);
 	}
 	
+	public void rotateLeft(float angle) {
+		float previousAngle = getAngle();
+		Vector newVector = new Vector(angle+previousAngle, getValue());
+		set(newVector);
+	}
 	
+	public void rotateRight(float angle) {
+		rotateLeft(-angle);
+	}
 }

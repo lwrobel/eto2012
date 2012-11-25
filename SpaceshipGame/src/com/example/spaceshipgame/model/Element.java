@@ -10,7 +10,7 @@ public class Element {
 	
 	public Element () {
 		position = new Vector(r.nextInt(300) + 10, r.nextInt(300) + 10);
-		velocity = new Vector(5, 100.0);
+		velocity = new Vector(r.nextInt(360), 10.0);
 	}
 	
 	public Element(Vector position) {

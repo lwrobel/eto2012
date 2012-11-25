@@ -20,7 +20,7 @@ public class MissileRenderer extends ElementRenderer {
         Bitmap kangoo = BitmapFactory.decodeResource(context.getResources(), R.drawable.missile);
         
         canvas.save();
-        canvas.rotate(missile.getRotation(), (float)(missile.getPosition().getX() + (kangoo.getScaledWidth(canvas) / 2)), (float)(missile.getPosition().getY() + (kangoo.getScaledHeight(canvas) / 2)));
+        canvas.rotate(360-missile.getRotation(), (float)(missile.getPosition().getX() + (kangoo.getScaledWidth(canvas) / 2)), (float)(missile.getPosition().getY() + (kangoo.getScaledHeight(canvas) / 2)));
         canvas.drawBitmap(kangoo, missile.getPosition().getX(), missile.getPosition().getY(), null);       
         canvas.restore();
         

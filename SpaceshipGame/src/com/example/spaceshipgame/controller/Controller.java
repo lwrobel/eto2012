@@ -45,27 +45,42 @@ public class Controller {
 		toast.show();
 	}
 
-	public void onLeftClicked() {
+	public void onLeftRelease() {
 		gameState.currentInstancePlayer.getSpaceship().rotateLeft(1);
 		showToastMessage("left");
 	}
 
-	public void onRightClicked() {
+	public void onRightRelease() {
 		gameState.currentInstancePlayer.getSpaceship().rotateRight(1);
 		showToastMessage("right");
 	}
 
-	public void onUpClicked() {
+	public void onUpRelease() {
 		gameState.currentInstancePlayer.getSpaceship().moveAhead();
 		showToastMessage("up");
 	}
 
-	public void onDownClicked() {
+	public void onDownRelease() {
 		gameState.currentInstancePlayer.getSpaceship().moveBack();
 		showToastMessage("down");
 	}
 
-	public void onAttackClicked() {
+	public void onAttackRelease() {
 		showToastMessage("attack");
+	}
+
+	public void onLeftPush() {
+	}
+
+	public void onRightPush() {
+	}
+
+	public void onDownPush() {
+	}
+
+	public void onUpPush() {
+	}
+
+	public void onAttackPush() {
 	}
 }

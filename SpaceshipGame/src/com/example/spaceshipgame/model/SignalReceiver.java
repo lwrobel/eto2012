@@ -4,7 +4,9 @@ import com.example.spaceshipgame.R;
 import com.example.spaceshipgame.controller.Controller;
 
 import android.app.Activity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
 
 /**
@@ -17,7 +19,7 @@ import android.widget.ImageButton;
  */
 
 public class SignalReceiver {
-	private Controller controller;
+	private Controller	controller;
 
 	public SignalReceiver(Controller controller) {
 		this.controller = controller;
@@ -27,7 +29,7 @@ public class SignalReceiver {
 	public void init() {
 		setListeners();
 	}
-	
+
 	private void setListeners() {
 		setLeftButtonListeners();
 		setRightButtonListeners();
@@ -40,9 +42,14 @@ public class SignalReceiver {
 		Activity activity = controller.getGameActivity();
 		ImageButton button = (ImageButton) activity
 				.findViewById(R.id.leftButton);
-		button.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				onLeftClicked();
+		button.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View view, MotionEvent event) {
+				if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) 
+					onLeftPush();
+				else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
+					onLeftRelease();
+				}
+				return true;
 			}
 		});
 	}
@@ -51,9 +58,14 @@ public class SignalReceiver {
 		Activity activity = controller.getGameActivity();
 		ImageButton button = (ImageButton) activity
 				.findViewById(R.id.rightButton);
-		button.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				onRightClicked();
+		button.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View view, MotionEvent event) {
+				if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) 
+					onRightPush();
+				else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
+					onRightRelease();
+				}
+				return true;
 			}
 		});
 	}
@@ -61,9 +73,14 @@ public class SignalReceiver {
 	private void setUpButtonListeners() {
 		Activity activity = controller.getGameActivity();
 		ImageButton button = (ImageButton) activity.findViewById(R.id.upButton);
-		button.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				onUpClicked();
+		button.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View view, MotionEvent event) {
+				if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) 
+					onUpPush();
+				else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
+					onUpRelease();
+				}
+				return true;
 			}
 		});
 	}
@@ -72,9 +89,14 @@ public class SignalReceiver {
 		Activity activity = controller.getGameActivity();
 		ImageButton button = (ImageButton) activity
 				.findViewById(R.id.downButton);
-		button.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				onDownClicked();
+		button.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View view, MotionEvent event) {
+				if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) 
+					onDownPush();
+				else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
+					onDownRelease();
+				}
+				return true;
 			}
 		});
 	}
@@ -83,30 +105,55 @@ public class SignalReceiver {
 		Activity activity = controller.getGameActivity();
 		ImageButton button = (ImageButton) activity
 				.findViewById(R.id.attackButton);
-		button.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				onAttackClicked();
+		button.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View view, MotionEvent event) {
+				if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) 
+					onAttackPush();
+				else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
+					onAttackRelease();
+				}
+				return true;
 			}
 		});
 	}
 
-	private void onAttackClicked() {
-		controller.onAttackClicked();
+	private void onLeftRelease() {
+		controller.onLeftRelease();
 	}
 
-	private void onLeftClicked() {
-		controller.onLeftClicked();
+	private void onLeftPush() {
+		controller.onLeftPush();
+	}
+	
+	private void onRightRelease() {
+		controller.onRightRelease();
 	}
 
-	private void onRightClicked() {
-		controller.onRightClicked();
+	private void onRightPush() {
+		controller.onRightPush();
+	}
+	
+	private void onDownRelease() {
+		controller.onDownRelease();
 	}
 
-	private void onUpClicked() {
-		controller.onUpClicked();
+	private void onDownPush() {
+		controller.onDownPush();
+	}
+	
+	private void onUpRelease() {
+		controller.onUpRelease();
 	}
 
-	private void onDownClicked() {
-		controller.onDownClicked();
+	private void onUpPush() {
+		controller.onUpPush();
+	}
+	
+	private void onAttackRelease() {
+		controller.onAttackRelease();
+	}
+
+	private void onAttackPush() {
+		controller.onAttackPush();
 	}
 }

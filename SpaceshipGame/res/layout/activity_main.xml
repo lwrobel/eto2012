@@ -12,11 +12,10 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="0dp" >
 
-        <FrameLayout
-            android:id="@+id/frameLayout2"
+        <com.example.spaceshipgame.GameView
+            android:id="@+id/gameView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-        </FrameLayout>
+            android:layout_height="match_parent" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -71,7 +70,6 @@
                 android:layout_marginRight="5dp"
                 android:contentDescription="@string/button_attack"
                 android:src="@drawable/attack" />
-
         </RelativeLayout>
     </FrameLayout>
 

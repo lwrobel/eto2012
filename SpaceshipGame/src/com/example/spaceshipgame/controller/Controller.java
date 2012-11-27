@@ -16,13 +16,9 @@ public class Controller {
 
 	public Controller(Activity activity) {
 		gameActivity = activity;
-	}
-
-	public void init() {
 		mainRenderer = new MainRenderer(getGameContext());
 		gameState = new GameState();
 		signalReceiver = new SignalReceiver(this);
-		signalReceiver.init();
 	}
 
 	public Activity getGameActivity() {
@@ -33,7 +29,7 @@ public class Controller {
 		return gameActivity.getApplicationContext();
 	}
 
-	public void changeState() {
+	public void changeState(int time) {
 	}
 
 	public void redraw(Canvas canvas) {
@@ -46,27 +42,22 @@ public class Controller {
 	}
 
 	public void onLeftRelease() {
-		gameState.currentInstancePlayer.getSpaceship().rotateLeft(1);
-		showToastMessage("left");
+		gameState.currentInstancePlayer.getSpaceship().rotateLeft(10);
 	}
 
 	public void onRightRelease() {
-		gameState.currentInstancePlayer.getSpaceship().rotateRight(1);
-		showToastMessage("right");
+		gameState.currentInstancePlayer.getSpaceship().rotateRight(10);
 	}
 
 	public void onUpRelease() {
 		gameState.currentInstancePlayer.getSpaceship().moveAhead();
-		showToastMessage("up");
 	}
 
 	public void onDownRelease() {
 		gameState.currentInstancePlayer.getSpaceship().moveBack();
-		showToastMessage("down");
 	}
 
 	public void onAttackRelease() {
-		showToastMessage("attack");
 	}
 
 	public void onLeftPush() {

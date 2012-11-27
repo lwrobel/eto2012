@@ -26,10 +26,6 @@ public class SignalReceiver {
 		setListeners();
 	}
 
-	public void init() {
-		setListeners();
-	}
-
 	private void setListeners() {
 		setLeftButtonListeners();
 		setRightButtonListeners();

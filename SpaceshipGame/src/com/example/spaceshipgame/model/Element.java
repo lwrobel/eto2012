@@ -33,20 +33,26 @@ public class Element {
 		position.add(vector);
 	}
 	
-	public void moveAhead() {
+	public void moveAhead(int time) {
+		//TODO use time in moving  
 		position.add(velocity);
 	}
 	
-	public void moveBack() {
+	public void moveBack(int time) {
+		//TODO use time in moving
 		position.sub(velocity);
 	}
 	
-	public void rotateLeft(double angle) {
-		velocity.rotateLeft((float)angle);
+	public void rotateLeft(int time) {
+		//TODO use time to count angle
+		float angle = 3.0f;
+		velocity.rotateLeft(angle);
 	}
 	
-	public void rotateRight(double angle) {
-		velocity.rotateRight((float)angle);
+	public void rotateRight(int time) {
+		//TODO use time to count angle
+		float angle = 3.0f;
+		velocity.rotateRight(angle);
 	}
 }
 

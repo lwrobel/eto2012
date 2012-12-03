@@ -8,11 +8,11 @@ import java.util.ArrayList;
  */
 public class GameState {
 	public ArrayList <Player> players = new ArrayList <Player> ();
-	public Player currentInstancePlayer;
+	public CurrentPlayer currentInstancePlayer;
 	private ColourManager colourManager;
 	
 	public GameState(){
-		currentInstancePlayer = new Player(colourManager.getUniqueColourRGB());
+		currentInstancePlayer = new CurrentPlayer(colourManager.getUniqueColourRGB());
 		players.add(currentInstancePlayer);
 		
 		for (int i=0; i<2; ++i)

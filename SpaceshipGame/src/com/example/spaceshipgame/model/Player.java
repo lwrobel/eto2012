@@ -8,7 +8,7 @@ public class Player {
 	public Colour colour;
 	
 	public Player(Colour colour){
-		spaceship = new Spaceship();
+		spaceship = new Spaceship(this);
        	elements.add(spaceship);
        	
        	elements.add(new Missile());

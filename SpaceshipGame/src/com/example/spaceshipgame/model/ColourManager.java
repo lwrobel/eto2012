@@ -5,7 +5,6 @@
 package com.example.spaceshipgame.model;
 
 import java.util.*;
-import java.awt.*;
 
 import android.graphics.Color;
 

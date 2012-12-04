@@ -6,4 +6,8 @@ public class Colour {
 	public Colour(int value){
 		this.value = value;
 	}
+	
+	public int toAndroidColor() {
+		return value;
+	}
 }

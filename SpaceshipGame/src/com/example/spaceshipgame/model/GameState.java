@@ -12,6 +12,7 @@ public class GameState {
 	private ColourManager colourManager;
 	
 	public GameState(){
+		colourManager = new ColourManager();
 		currentInstancePlayer = new CurrentPlayer(colourManager.getUniqueColourRGB());
 		players.add(currentInstancePlayer);
 		

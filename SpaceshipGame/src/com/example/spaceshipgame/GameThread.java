@@ -42,6 +42,10 @@ class GameThread extends Thread {
 					updatePhysics();
 					doDraw(c);
 				}
+			} catch (Exception ex) {
+				if (c != null) {
+					mSurfaceHolder.unlockCanvasAndPost(c);
+				}
 			} finally {
 				if (c != null) {
 					mSurfaceHolder.unlockCanvasAndPost(c);

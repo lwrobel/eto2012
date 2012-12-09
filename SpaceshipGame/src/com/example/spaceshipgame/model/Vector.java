@@ -87,12 +87,12 @@ public class Vector {
 	}
 	
 	public void rotateLeft(float angle) {
-		float previousAngle = getAngle();
-		Vector newVector = new Vector(angle+previousAngle, getValue());
-		set(newVector);
+		rotateRight(-angle);
 	}
 	
 	public void rotateRight(float angle) {
-		rotateLeft(-angle);
+		float previousAngle = getAngle();
+		Vector newVector = new Vector(angle+previousAngle, getValue());
+		set(newVector);
 	}
 }

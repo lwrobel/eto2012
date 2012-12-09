@@ -24,7 +24,7 @@ public class SpaceshipRenderer extends ElementRenderer {
 		Matrix matrix = new Matrix();
 		matrix.reset();
 		matrix.postTranslate(-bmp.getWidth() / 2, -bmp.getHeight() / 2);
-		matrix.postRotate(360 - spaceship.getRotation());
+		matrix.postRotate(spaceship.getRotation());
 		matrix.postTranslate(spaceship.getPosition().getX(), spaceship.getPosition().getY());
 
 		canvas.drawBitmap(bmp, matrix, null);
@@ -44,7 +44,7 @@ public class SpaceshipRenderer extends ElementRenderer {
 		Matrix matrix = new Matrix();
 		matrix.reset();
 		matrix.postTranslate(-banner.getWidth() / 2, -banner.getHeight() / 2);
-		matrix.postRotate(360 - spaceship.getRotation());
+		matrix.postRotate(spaceship.getRotation());
 		matrix.postTranslate(spaceship.getPosition().getX(), spaceship.getPosition().getY());
 		canvas.drawBitmap(banner, matrix, paint);
 	}

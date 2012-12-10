@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class GameState {
 	public ArrayList <Player> players = new ArrayList <Player> ();
+	
 	public CurrentPlayer currentInstancePlayer;
 	private ColourManager colourManager;
 	

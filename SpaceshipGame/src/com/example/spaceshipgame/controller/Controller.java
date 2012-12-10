@@ -31,6 +31,7 @@ public class Controller {
 
 	public void changeState(int time) {
 		CurrentPlayer player = gameState.currentInstancePlayer;
+		
 		synchronized (player) {
 			if (player.moveState.movingLeft() == PlayerMoveState.ENABLE)
 				player.spaceship.rotateLeft(time);
@@ -40,6 +41,10 @@ public class Controller {
 				player.spaceship.moveAhead(time);
 			if (player.moveState.movingDown() == PlayerMoveState.ENABLE)
 				player.spaceship.moveBack(time);
+			
+			for(Element element : player.elements)
+				if( element instanceof CurrentMissile && ((CurrentMissile)element).moveState.getIsMoving() == MissileMoveState.ENABLE)
+					element.moveAhead(time);	
 		}
 	}
 
@@ -113,5 +118,14 @@ public class Controller {
 	}
 
 	public void onAttackPush() {
+		CurrentPlayer player = gameState.currentInstancePlayer;
+		CurrentMissile missile = new CurrentMissile();
+		missile.moveState.setIsMoving(MissileMoveState.ENABLE);
+		
+		synchronized(player) {
+			missile.setPosition(player.getSpaceship().getPosition());
+			missile.setVelocity(player.getSpaceship().getVelocity());
+			gameState.currentInstancePlayer.elements.add(missile);		
+		}
 	}
 }

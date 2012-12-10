@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 
 import com.example.spaceshipgame.R;
@@ -17,12 +18,14 @@ public class MissileRenderer extends ElementRenderer {
 	public void render(Canvas canvas, Element element, Context context) {
 		super.render(canvas, element, context);
 		Missile missile = (Missile) element;
-        Bitmap kangoo = BitmapFactory.decodeResource(context.getResources(), R.drawable.missile);
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.missile);
         
-        canvas.save();
-        canvas.rotate(360-missile.getRotation(), (float)(missile.getPosition().getX() + (kangoo.getScaledWidth(canvas) / 2)), (float)(missile.getPosition().getY() + (kangoo.getScaledHeight(canvas) / 2)));
-        canvas.drawBitmap(kangoo, missile.getPosition().getX(), missile.getPosition().getY(), null);       
-        canvas.restore();
-        
+		Matrix matrix = new Matrix();
+		matrix.reset();
+		matrix.postTranslate(-bmp.getWidth() / 2, -bmp.getHeight() / 2);
+		matrix.postRotate(missile.getRotation());
+		matrix.postTranslate(missile.getPosition().getX(), missile.getPosition().getY());
+
+		canvas.drawBitmap(bmp, matrix, null);
 	}
 }

@@ -33,6 +33,14 @@ public class Element {
 		position.add(vector);
 	}
 	
+	public void setPosition(Vector vector) {
+		position.set(vector);
+	}
+	
+	public void setVelocity(Vector vector) {
+		velocity.set(vector);
+	}
+	
 	public void moveAhead(int time) {
 		//TODO use time in moving  
 		position.add(velocity);

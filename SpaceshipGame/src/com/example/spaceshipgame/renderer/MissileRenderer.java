@@ -12,16 +12,21 @@ import com.example.spaceshipgame.model.Missile;
 
 public class MissileRenderer extends ElementRenderer {
 	Paint paint = new Paint();
+	Bitmap missleBmp;
+	
+	public MissileRenderer(Context context) {
+		super(context);
+		missleBmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.missile);
+	}
 	
 	@Override
-	public void render(Canvas canvas, Element element, Context context) {
-		super.render(canvas, element, context);
+	public void render(Canvas canvas, Element element) {
+		super.render(canvas, element);
 		Missile missile = (Missile) element;
-        Bitmap kangoo = BitmapFactory.decodeResource(context.getResources(), R.drawable.missile);
         
         canvas.save();
-        canvas.rotate(360-missile.getRotation(), (float)(missile.getPosition().getX() + (kangoo.getScaledWidth(canvas) / 2)), (float)(missile.getPosition().getY() + (kangoo.getScaledHeight(canvas) / 2)));
-        canvas.drawBitmap(kangoo, missile.getPosition().getX(), missile.getPosition().getY(), null);       
+        canvas.rotate(360-missile.getRotation(), (float)(missile.getPosition().getX() + (missleBmp.getScaledWidth(canvas) / 2)), (float)(missile.getPosition().getY() + (missleBmp.getScaledHeight(canvas) / 2)));
+        canvas.drawBitmap(missleBmp, missile.getPosition().getX(), missile.getPosition().getY(), null);       
         canvas.restore();
         
 	}

@@ -14,18 +14,26 @@ import com.example.spaceshipgame.model.Spaceship;
 
 public class SpaceshipRenderer extends ElementRenderer {
 	Paint	paint	= new Paint();
+	Bitmap	spaceShipBmp;
+
+	public SpaceshipRenderer(Context context) {
+		super(context);
+		spaceShipBmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceship);
+	}
 
 	@Override
-	public void render(Canvas canvas, Element element, Context context) {
-		super.render(canvas, element, context);
+	public void render(Canvas canvas, Element element) {
+		super.render(canvas, element);
 		Spaceship spaceship = (Spaceship) element;
-		Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceship);
+		Bitmap bmp = BitmapFactory.decodeResource(context.getResources(),
+				R.drawable.spaceship);
 
 		Matrix matrix = new Matrix();
 		matrix.reset();
 		matrix.postTranslate(-bmp.getWidth() / 2, -bmp.getHeight() / 2);
 		matrix.postRotate(spaceship.getRotation());
-		matrix.postTranslate(spaceship.getPosition().getX(), spaceship.getPosition().getY());
+		matrix.postTranslate(spaceship.getPosition().getX(), spaceship
+				.getPosition().getY());
 
 		canvas.drawBitmap(bmp, matrix, null);
 		renderBanner(canvas, element, context);
@@ -33,19 +41,22 @@ public class SpaceshipRenderer extends ElementRenderer {
 
 	private void renderBanner(Canvas canvas, Element element, Context context) {
 		Spaceship spaceship = (Spaceship) element;
-		Bitmap banner = BitmapFactory.decodeResource(context.getResources(), R.drawable.banner);
+		Bitmap banner = BitmapFactory.decodeResource(context.getResources(),
+				R.drawable.banner);
 
 		Paint paint = new Paint();
 		paint.setDither(true);
 		paint.setAntiAlias(true);
 		paint.setFilterBitmap(true);
-		paint.setColorFilter(new LightingColorFilter(0x00505050, spaceship.colour().toAndroidColor()));
+		paint.setColorFilter(new LightingColorFilter(0x00505050, spaceship
+				.colour().toAndroidColor()));
 
 		Matrix matrix = new Matrix();
 		matrix.reset();
 		matrix.postTranslate(-banner.getWidth() / 2, -banner.getHeight() / 2);
 		matrix.postRotate(spaceship.getRotation());
-		matrix.postTranslate(spaceship.getPosition().getX(), spaceship.getPosition().getY());
+		matrix.postTranslate(spaceship.getPosition().getX(), spaceship
+				.getPosition().getY());
 		canvas.drawBitmap(banner, matrix, paint);
 	}
 }

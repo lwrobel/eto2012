@@ -6,7 +6,12 @@ import android.graphics.Canvas;
 import com.example.spaceshipgame.model.Element;
 
 public class ElementRenderer {
-	
-	public void render(Canvas canvas, Element element, Context context) {
+	protected Context	context;
+
+	public ElementRenderer(Context context) {
+		this.context = context;
+	}
+
+	public void render(Canvas canvas, Element element) {
 	}
 }

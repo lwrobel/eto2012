@@ -28,7 +28,6 @@ public class MainRenderer {
 		context = context_;
 		elementRendererFactory = new ElementRendererFactory(context_);
 
-		createBackground();
 		screenSize = new Point();
 
 		WindowManager wm = (WindowManager) context
@@ -37,6 +36,7 @@ public class MainRenderer {
 		display.getSize(screenSize);
 
 		mapCenter = new Point(screenSize.x / 2, screenSize.y / 2);
+		createBackground();
 	}
 
 	public void render(Canvas canvas, GameState gameState) {
@@ -55,13 +55,14 @@ public class MainRenderer {
 		Bitmap bmp = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.background);
 
-		Bitmap bmOverlay = Bitmap.createBitmap(bmp.getWidth() * 2,
-				bmp.getHeight() * 2, Bitmap.Config.ARGB_8888);
+		Bitmap bmOverlay = Bitmap.createBitmap(screenSize.x * 2,
+				screenSize.y * 2, Bitmap.Config.ARGB_8888);
+		Rect src = new Rect(0, 0, bmp.getWidth(), bmp.getHeight());
 		Canvas canvas = new Canvas(bmOverlay);
-		canvas.drawBitmap(bmp, 0, 0, null);
-		canvas.drawBitmap(bmp, bmp.getWidth(), 0, null);
-		canvas.drawBitmap(bmp, bmp.getWidth(), bmp.getHeight(), null);
-		canvas.drawBitmap(bmp, 0, bmp.getHeight(), null);
+		canvas.drawBitmap(bmp, src, new Rect(screenSize.x*0, screenSize.y*0, screenSize.x*1, screenSize.y*1), null);
+		canvas.drawBitmap(bmp, src, new Rect(screenSize.x*0, screenSize.y*1, screenSize.x*1, screenSize.y*2), null);
+		canvas.drawBitmap(bmp, src, new Rect(screenSize.x*1, screenSize.y*0, screenSize.x*2, screenSize.y*1), null);
+		canvas.drawBitmap(bmp, src, new Rect(screenSize.x*1, screenSize.y*1, screenSize.x*2, screenSize.y*2), null);
 		background = bmOverlay;
 	}
 

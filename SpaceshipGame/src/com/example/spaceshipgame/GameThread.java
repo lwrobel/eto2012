@@ -24,7 +24,7 @@ class GameThread extends Thread {
 	public GameThread(SurfaceHolder surfaceHolder) {
 		mSurfaceHolder = surfaceHolder;
 		textPaint = new Paint();
-		textPaint.setColor(Color.BLACK);
+		textPaint.setColor(Color.WHITE);
 		textPaint.setTextSize(16);
 	}
 
@@ -72,9 +72,8 @@ class GameThread extends Thread {
 	}
 
 	private void doDraw(Canvas canvas) {
-		canvas.drawColor(Color.WHITE);
-		canvas.drawText(fps + " fps", 10, 20, textPaint);
 		controller.redraw(canvas);
+		canvas.drawText(fps + " fps", 10, 20, textPaint);
 		canvas.restore();
 	}
 

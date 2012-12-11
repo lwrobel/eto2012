@@ -6,6 +6,6 @@ public class Map {
 	public Point size;
 	
 	public Map() {
-		size = new Point(1600, 1200);
+		size = new Point(5000, 5000);
 	}
 }

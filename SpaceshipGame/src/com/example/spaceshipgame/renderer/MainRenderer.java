@@ -16,8 +16,7 @@ import com.example.spaceshipgame.model.*;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 public class MainRenderer {
-	private static final int	X_MARGIN	= 100;
-	private static final int	Y_MARGIN	= 50;
+	public static final Point	MARGIN	= new Point(100, 50);
 	private Point				screenSize;
 	private Point				mapCenter;
 	private Bitmap				background;
@@ -29,13 +28,15 @@ public class MainRenderer {
 		context = context_;
 		elementRendererFactory = new ElementRendererFactory(context_);
 
-		background = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
-		mapCenter = new Point(200, 200); //TODO
+		createBackground();
 		screenSize = new Point();
-		
-		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+		WindowManager wm = (WindowManager) context
+				.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		display.getSize(screenSize);
+
+		mapCenter = new Point(screenSize.x / 2, screenSize.y / 2);
 	}
 
 	public void render(Canvas canvas, GameState gameState) {
@@ -50,51 +51,61 @@ public class MainRenderer {
 		}
 	}
 
+	private void createBackground() {
+		Bitmap bmp = BitmapFactory.decodeResource(context.getResources(),
+				R.drawable.background);
+
+		Bitmap bmOverlay = Bitmap.createBitmap(bmp.getWidth() * 2,
+				bmp.getHeight() * 2, Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(bmOverlay);
+		canvas.drawBitmap(bmp, 0, 0, null);
+		canvas.drawBitmap(bmp, bmp.getWidth(), 0, null);
+		canvas.drawBitmap(bmp, bmp.getWidth(), bmp.getHeight(), null);
+		canvas.drawBitmap(bmp, 0, bmp.getHeight(), null);
+		background = bmOverlay;
+	}
+
 	private void updateMapCenter(GameState gameState) {
 		Spaceship currentPlayerSpaceship = gameState.currentInstancePlayer.spaceship;
 		int x = (int) currentPlayerSpaceship.getPosition().getX();
 		int y = (int) currentPlayerSpaceship.getPosition().getY();
 
-		if (mapCenter.x + screenSize.x / 2 - X_MARGIN < x) {
-			mapCenter.x = x - screenSize.x / 2 + X_MARGIN;
-		} else if (mapCenter.x - screenSize.x / 2 + X_MARGIN > x) {
-			mapCenter.x = x + screenSize.x / 2 - X_MARGIN;
+		if (mapCenter.x + screenSize.x / 2 - MARGIN.x < x) {
+			mapCenter.x = x - screenSize.x / 2 + MARGIN.x;
+		} else if (mapCenter.x - screenSize.x / 2 + MARGIN.x > x) {
+			mapCenter.x = x + screenSize.x / 2 - MARGIN.x;
 		}
 
-		if (mapCenter.y + screenSize.y / 2 - Y_MARGIN < y) {
-			mapCenter.y = y - screenSize.y / 2 + Y_MARGIN;
-		} else if (mapCenter.y - screenSize.y / 2 + Y_MARGIN > y) {
-			mapCenter.y = y + screenSize.y / 2 - Y_MARGIN;
+		if (mapCenter.y + screenSize.y / 2 - MARGIN.y < y) {
+			mapCenter.y = y - screenSize.y / 2 + MARGIN.y;
+		} else if (mapCenter.y - screenSize.y / 2 + MARGIN.y > y) {
+			mapCenter.y = y + screenSize.y / 2 - MARGIN.y;
 		}
 	}
 
 	private void renderMap(Canvas canvas, GameState gameState) {
 		Point mapSize = gameState.map.size;
-		int left, right, top, bottom;
+		int left, top;
 
-		if (mapCenter.x - screenSize.x / 2 < 0) {
+		if (mapCenter.x - screenSize.x / 2 < 0)
 			left = 0;
-			right = screenSize.x;
-		} else if (mapCenter.x + screenSize.x / 2 > mapSize.x) {
+		else if (mapCenter.x + screenSize.x / 2 > mapSize.x)
 			left = mapSize.x - screenSize.x;
-			right = mapSize.x;
-		} else {
+		else
 			left = mapCenter.x - screenSize.x / 2;
-			right = mapCenter.x + screenSize.x / 2;
-		}
 
-		if (mapCenter.y - screenSize.y / 2 < 0) {
+		if (mapCenter.y - screenSize.y / 2 < 0)
 			top = 0;
-			bottom = screenSize.y;
-		} else if (mapCenter.y + screenSize.y / 2 > mapSize.y) {
+		else if (mapCenter.y + screenSize.y / 2 > mapSize.y)
 			top = mapSize.y - screenSize.y;
-			bottom = mapSize.y;
-		} else {
+		else
 			top = mapCenter.y - screenSize.y / 2;
-			bottom = mapCenter.y + screenSize.y / 2;
-		}
 
-		Rect src = new Rect(left, top, right, bottom);
+		left %= background.getWidth() / 2;
+		top %= background.getHeight() / 2;
+
+		Rect src = new Rect(left, top, left + background.getWidth() / 2, top
+				+ background.getHeight() / 2);
 		Rect dst = new Rect(0, 0, screenSize.x, screenSize.y);
 		canvas.drawBitmap(background, src, dst, null);
 	}

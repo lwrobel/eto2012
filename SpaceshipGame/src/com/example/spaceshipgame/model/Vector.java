@@ -98,19 +98,19 @@ public class Vector {
 		set(newVector);
 	}
 	
-	public void validate (Point min, Point max) {
+	public void validate (Point min, Point max, Point margin) {
 		x = getX();
 		y = getY();
 		
-		if (x <= min.x)
-			x=min.x;
-		else if (x >= max.x)
-			x = max.x;
+		if (x <= min.x + margin.x)
+			x=min.x + margin.x;
+		else if (x >= max.x - margin.x)
+			x = max.x - margin.x;
 		
-		if (y <= min.y)
-			y=min.y;
-		else if (y >= max.y)
-			y = max.y;
+		if (y <= min.y + margin.y)
+			y=min.y + margin.y;
+		else if (y >= max.y -  margin.y)
+			y = max.y - margin.y;
 		set(x,y);
 	}
 }

@@ -41,7 +41,7 @@ public class Controller {
 				player.spaceship.moveAhead(time);
 			if (player.moveState.movingDown() == PlayerMoveState.ENABLE)
 				player.spaceship.moveBack(time);
-			player.getSpaceship().getPosition().validate(new Point(0, 0), gameState.map.size);
+			player.getSpaceship().getPosition().validate(new Point(0, 0), gameState.map.size, MainRenderer.MARGIN);
 		}
 	}
 

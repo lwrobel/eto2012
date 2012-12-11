@@ -1,5 +1,7 @@
 package com.example.spaceshipgame.model;
 
+import android.graphics.Point;
+
 public class Vector {
 
 	private float x,y;
@@ -94,5 +96,21 @@ public class Vector {
 		float previousAngle = getAngle();
 		Vector newVector = new Vector(angle+previousAngle, getValue());
 		set(newVector);
+	}
+	
+	public void validate (Point min, Point max) {
+		x = getX();
+		y = getY();
+		
+		if (x <= min.x)
+			x=min.x;
+		else if (x >= max.x)
+			x = max.x;
+		
+		if (y <= min.y)
+			y=min.y;
+		else if (y >= max.y)
+			y = max.y;
+		set(x,y);
 	}
 }

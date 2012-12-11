@@ -6,6 +6,7 @@ import com.example.spaceshipgame.renderer.*;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.widget.Toast;
 
 public class Controller {
@@ -40,6 +41,7 @@ public class Controller {
 				player.spaceship.moveAhead(time);
 			if (player.moveState.movingDown() == PlayerMoveState.ENABLE)
 				player.spaceship.moveBack(time);
+			player.getSpaceship().getPosition().validate(new Point(0, 0), gameState.map.size);
 		}
 	}
 

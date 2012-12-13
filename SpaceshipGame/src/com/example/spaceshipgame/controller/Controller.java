@@ -17,8 +17,8 @@ public class Controller {
 
 	public Controller(Activity activity) {
 		gameActivity = activity;
-		mainRenderer = new MainRenderer(getGameContext());
 		gameState = new GameState();
+		mainRenderer = new MainRenderer(getGameContext(), gameState);
 		signalReceiver = new SignalReceiver(this);
 	}
 
@@ -41,7 +41,10 @@ public class Controller {
 				player.spaceship.moveAhead(time);
 			if (player.moveState.movingDown() == PlayerMoveState.ENABLE)
 				player.spaceship.moveBack(time);
-			player.getSpaceship().getPosition().validate(new Point(0, 0), gameState.map.size, MainRenderer.MARGIN);
+			player.getSpaceship()
+					.getPosition()
+					.validate(new Point(0, 0), gameState.map.size,
+							gameState.map.MARGIN);
 		}
 	}
 

@@ -7,11 +7,11 @@ public class Player {
 	public Spaceship spaceship;
 	public Colour colour;
 	
-	public Player(Colour colour){
-		spaceship = new Spaceship(this);
+	public Player(Colour colour, Map map){
+		spaceship = new Spaceship(this, map);
        	elements.add(spaceship);
        	
-       	elements.add(new Missile());
+       	elements.add(new Missile(map));
        	this.colour = colour;
 	}
 	

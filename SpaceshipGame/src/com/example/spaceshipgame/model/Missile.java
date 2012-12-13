@@ -3,7 +3,8 @@ package com.example.spaceshipgame.model;
 public class Missile extends Element {
 	private int radius;
 	
-	public Missile () {
+	public Missile (Map map) {
+		super (map);
 		radius = r.nextInt(20) + 10;
 	}
 	

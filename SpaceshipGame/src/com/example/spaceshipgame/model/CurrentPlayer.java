@@ -2,7 +2,7 @@ package com.example.spaceshipgame.model;
 
 import org.json.JSONObject;
 
-public class CurrentPlayer extends Player {
+public class CurrentPlayer extends Player implements JSONSerializable{
 	public PlayerMoveState moveState;
 	
 	public CurrentPlayer(Colour colour, Map map) {

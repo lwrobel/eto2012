@@ -2,7 +2,7 @@ package com.example.spaceshipgame.model;
 
 import org.json.JSONObject;
 
-public class Spaceship extends Element {
+public class Spaceship extends Element implements JSONSerializable{
 	private int		width, height;
 	private Player	player;
 

@@ -2,7 +2,7 @@ package com.example.spaceshipgame.model;
 
 import org.json.JSONObject;
 
-public class PlayerMoveState {
+public class PlayerMoveState implements JSONSerializable{
 	public static boolean	ENABLE	= true;
 	public static boolean	DISABLE	= false;
 	private boolean			movingLeft;

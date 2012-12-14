@@ -2,7 +2,7 @@ package com.example.spaceshipgame.model;
 
 import org.json.JSONObject;
 
-public class Missile extends Element {
+public class Missile extends Element implements JSONSerializable{
 	private int radius;
 	
 	public Missile (Map map) {

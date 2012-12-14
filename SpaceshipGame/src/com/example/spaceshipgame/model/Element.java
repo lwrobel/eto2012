@@ -4,7 +4,7 @@ import java.util.Random;
 
 import org.json.JSONObject;
 
-public class Element {
+public class Element implements JSONSerializable{
 	private Vector	position;
 	private Vector	velocity;
 

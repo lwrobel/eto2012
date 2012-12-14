@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 import android.graphics.Point;
 
-public class Vector {
+public class Vector implements JSONSerializable{
 
 	private float x,y;
 	

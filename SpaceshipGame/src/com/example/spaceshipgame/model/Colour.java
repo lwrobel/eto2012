@@ -2,7 +2,7 @@ package com.example.spaceshipgame.model;
 
 import org.json.JSONObject;
 
-public class Colour {
+public class Colour implements JSONSerializable{
 	int value;
 	
 	public Colour(int value){

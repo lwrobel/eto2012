@@ -8,7 +8,7 @@ import org.json.*;
  * 
  * @author Aleksandra Spyra
  */
-public class GameState {
+public class GameState implements JSONSerializable{
 	public ArrayList<Player>	players	= new ArrayList<Player>();
 	public CurrentPlayer		currentInstancePlayer;
 	private ColourManager		colourManager;

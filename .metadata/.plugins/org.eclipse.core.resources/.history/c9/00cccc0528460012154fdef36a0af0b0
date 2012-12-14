@@ -95,8 +95,19 @@ public class MainRenderer {
 		Point mapSize = gameState.map.size;
 		int left, top;
 
-		left 	= calculateRenderMapCoord(mapSize.x, mapCenter.x, screenSize.x);
-		top 	= calculateRenderMapCoord(mapSize.y, mapCenter.y, screenSize.y);
+		if (mapCenter.x - screenSize.x / 2 < 0)
+			left = 0;
+		else if (mapCenter.x + screenSize.x / 2 > mapSize.x)
+			left = mapSize.x - screenSize.x;
+		else
+			left = mapCenter.x - screenSize.x / 2;
+
+		if (mapCenter.y - screenSize.y / 2 < 0)
+			top = 0;
+		else if (mapCenter.y + screenSize.y / 2 > mapSize.y)
+			top = mapSize.y - screenSize.y;
+		else
+			top = mapCenter.y - screenSize.y / 2;
 
 		left %= background.getWidth() / 2;
 		top %= background.getHeight() / 2;
@@ -113,13 +124,5 @@ public class MainRenderer {
 		if (mapCoord - screenCoord/2 + marginCoord > playerCoord)
 			return (playerCoord + screenCoord/2 - marginCoord);
 		return mapCoord;
-	}
-	
-	private int calculateRenderMapCoord(int mapCoord, int mapCenterCoord, int screenCoord){
-		if (mapCenterCoord - screenCoord/2 < 0)
-			return 0;
-		if (mapCenterCoord + screenCoord/2 > mapCoord)
-			return (mapCoord - screenCoord);
-		return (mapCenterCoord - screenCoord/2);
 	}
 }

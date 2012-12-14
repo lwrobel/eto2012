@@ -87,16 +87,36 @@ public class MainRenderer {
 		int y = (int) currentPlayerSpaceship.getPosition().getY();
 
 		Point MARGIN = gameState.map.MARGIN;
-		mapCenter.x = updateMapCoord(mapCenter.x, screenSize.x, MARGIN.x, x);
-		mapCenter.y = updateMapCoord(mapCenter.y, screenSize.y, MARGIN.y, y);
+		if (mapCenter.x + screenSize.x / 2 - MARGIN.x < x) {
+			mapCenter.x = x - screenSize.x / 2 + MARGIN.x;
+		} else if (mapCenter.x - screenSize.x / 2 + MARGIN.x > x) {
+			mapCenter.x = x + screenSize.x / 2 - MARGIN.x;
+		}
+
+		if (mapCenter.y + screenSize.y / 2 - MARGIN.y < y) {
+			mapCenter.y = y - screenSize.y / 2 + MARGIN.y;
+		} else if (mapCenter.y - screenSize.y / 2 + MARGIN.y > y) {
+			mapCenter.y = y + screenSize.y / 2 - MARGIN.y;
+		}
 	}
 
 	private void renderMap(Canvas canvas, GameState gameState) {
 		Point mapSize = gameState.map.size;
 		int left, top;
 
-		left 	= calculateRenderMapCoord(mapSize.x, mapCenter.x, screenSize.x);
-		top 	= calculateRenderMapCoord(mapSize.y, mapCenter.y, screenSize.y);
+		if (mapCenter.x - screenSize.x / 2 < 0)
+			left = 0;
+		else if (mapCenter.x + screenSize.x / 2 > mapSize.x)
+			left = mapSize.x - screenSize.x;
+		else
+			left = mapCenter.x - screenSize.x / 2;
+
+		if (mapCenter.y - screenSize.y / 2 < 0)
+			top = 0;
+		else if (mapCenter.y + screenSize.y / 2 > mapSize.y)
+			top = mapSize.y - screenSize.y;
+		else
+			top = mapCenter.y - screenSize.y / 2;
 
 		left %= background.getWidth() / 2;
 		top %= background.getHeight() / 2;
@@ -106,20 +126,5 @@ public class MainRenderer {
 		Rect dst = new Rect(0, 0, screenSize.x, screenSize.y);
 		canvas.drawBitmap(background, src, dst, null);
 	}
-	
-	private int updateMapCoord(int mapCoord, int screenCoord, int marginCoord, int playerCoord){
-		if (mapCoord + screenCoord/2 - marginCoord < playerCoord)
-			return (playerCoord - screenCoord/2 + marginCoord);
-		if (mapCoord - screenCoord/2 + marginCoord > playerCoord)
-			return (playerCoord + screenCoord/2 - marginCoord);
-		return mapCoord;
-	}
-	
-	private int calculateRenderMapCoord(int mapCoord, int mapCenterCoord, int screenCoord){
-		if (mapCenterCoord - screenCoord/2 < 0)
-			return 0;
-		if (mapCenterCoord + screenCoord/2 > mapCoord)
-			return (mapCoord - screenCoord);
-		return (mapCenterCoord - screenCoord/2);
-	}
+
 }

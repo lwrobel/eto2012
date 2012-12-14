@@ -115,7 +115,7 @@ public class MainRenderer {
 		return mapCoord;
 	}
 	
-	private int calculateRenderMapCoord(int mapCoord, int mapCenterCoord, int screenCoord){
+	private int calculateRenderMapCoords(int mapCoord, int mapCenterCoord, int screenCoord){
 		if (mapCenterCoord - screenCoord/2 < 0)
 			return 0;
 		if (mapCenterCoord + screenCoord/2 > mapCoord)

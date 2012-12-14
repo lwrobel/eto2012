@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+/home/ola/Documents/Studia/ETO/Project/eto2012/.metadata/.plugins/org.eclipse.jdt.core
+2768366671.index
+4015638190.index

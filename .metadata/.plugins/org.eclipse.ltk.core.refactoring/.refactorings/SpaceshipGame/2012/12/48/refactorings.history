@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.example.spaceshipgame.model.Colour.java&apos; to &apos;ColourManager.java&apos;&#x0A;- Original project: &apos;SpaceshipGame&apos;&#x0A;- Original element: &apos;com.example.spaceshipgame.model.Colour.java&apos;&#x0A;- Renamed element: &apos;com.example.spaceshipgame.model.ColourManager.java&apos;" description="Rename compilation unit &apos;Colour.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;com.example.spaceshipgame.model{Colour.java" name="ColourManager.java" references="false" stamp="1354443049547" version="1.0"/>
+</session>

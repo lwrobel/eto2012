@@ -1,0 +1,14 @@
+package com.example.spaceshipgame.model;
+
+import android.graphics.Point;
+
+public class Map {
+	private final static int MAP_SIZE_X = 3000;
+	
+	public final Point	MARGIN	= new Point(100, 50);
+	public Point		size;
+
+	public Map() {
+		size = new Point(3000, 1500);
+	}
+}

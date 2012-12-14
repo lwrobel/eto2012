@@ -1,5 +1,7 @@
 package com.example.spaceshipgame.model;
 
+import org.json.JSONObject;
+
 public class PlayerMoveState {
 	public static boolean	ENABLE	= true;
 	public static boolean	DISABLE	= false;
@@ -45,5 +47,19 @@ public class PlayerMoveState {
 
 	public boolean movingDown() {
 		return movingDown;
+	}
+	
+	public JSONObject serialize(){
+		try{
+			JSONObject obj = new JSONObject();
+			obj.put("movingLeft", movingLeft);
+			obj.put("movingRight", movingRight);
+			obj.put("movingUp", movingUp);
+			obj.put("movingDown", movingDown);
+			return obj;
+		}
+		catch(Exception ex){
+			return null;
+		}
 	}
 }

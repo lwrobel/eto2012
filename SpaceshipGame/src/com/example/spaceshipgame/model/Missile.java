@@ -1,5 +1,7 @@
 package com.example.spaceshipgame.model;
 
+import org.json.JSONObject;
+
 public class Missile extends Element {
 	private int radius;
 	
@@ -10,5 +12,16 @@ public class Missile extends Element {
 	
 	public int getRadius() {
 		return radius;
+	}
+	
+	public JSONObject serialize(){
+		try{
+			JSONObject obj = super.serialize();
+			obj.put("radius", radius);
+			return obj;
+		}
+		catch(Exception ex){
+			return null;
+		}
 	}
 }

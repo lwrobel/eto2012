@@ -2,6 +2,8 @@ package com.example.spaceshipgame.model;
 
 import java.util.Random;
 
+import org.json.JSONObject;
+
 public class Element {
 	private Vector	position;
 	private Vector	velocity;
@@ -55,5 +57,17 @@ public class Element {
 		// TODO use time to count angle
 		float angle = 3.0f;
 		velocity.rotateRight(angle);
+	}
+	
+	public JSONObject serialize(){
+		try{
+			JSONObject obj = new JSONObject();
+			obj.put("position", position.serialize());
+			obj.put("velocity", velocity.serialize());
+			return obj;
+		}
+		catch(Exception ex){
+			return null;
+		}
 	}
 }

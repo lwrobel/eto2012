@@ -1,5 +1,7 @@
 package com.example.spaceshipgame.model;
 
+import org.json.JSONObject;
+
 public class Spaceship extends Element {
 	private int		width, height;
 	private Player	player;
@@ -21,5 +23,17 @@ public class Spaceship extends Element {
 
 	public int getWidth() {
 		return width;
+	}
+	
+	public JSONObject serialize(){
+		try{
+			JSONObject obj = super.serialize();
+			obj.put("width", width);
+			obj.put("height", height);
+			return obj;
+		}
+		catch(Exception ex){
+			return null;
+		}
 	}
 }

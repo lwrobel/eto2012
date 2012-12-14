@@ -1,6 +1,7 @@
 package com.example.spaceshipgame.model;
 
 import java.util.ArrayList;
+import org.json.*;
 
 /**
  * The Class GameState.
@@ -23,4 +24,16 @@ public class GameState {
 		for (int i = 0; i < 10; ++i)
 			players.add(new Player(colourManager.getUniqueColourRGB(), map));
 	}
+	
+	public JSONObject serialize(){
+		try{
+			JSONObject result = new JSONObject();
+			result.put("currentInstancePlayer", currentInstancePlayer.serialize());
+			return result;
+		}
+		catch(JSONException ex){
+			return null;
+		}
+	}
+	
 }

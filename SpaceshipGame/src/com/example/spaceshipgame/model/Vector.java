@@ -1,5 +1,7 @@
 package com.example.spaceshipgame.model;
 
+import org.json.JSONObject;
+
 import android.graphics.Point;
 
 public class Vector {
@@ -112,5 +114,17 @@ public class Vector {
 		else if (y >= max.y -  margin.y)
 			y = max.y - margin.y;
 		set(x,y);
+	}
+	
+	public JSONObject serialize(){
+		try{
+			JSONObject obj = new JSONObject();
+			obj.put("x", x);
+			obj.put("y", y);
+			return obj;
+		}
+		catch(Exception ex){
+			return null;
+		}
 	}
 }

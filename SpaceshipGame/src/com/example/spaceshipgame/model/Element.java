@@ -7,6 +7,7 @@ import org.json.JSONObject;
 public class Element implements JSONSerializable{
 	private Vector	position;
 	private Vector	velocity;
+	private int 	ID 	= -1;
 
 	Random			r	= new Random();
 
@@ -59,9 +60,18 @@ public class Element implements JSONSerializable{
 		velocity.rotateRight(angle);
 	}
 	
+	public int getID(){
+		return ID;
+	}
+	
+	public void setID(int ID){
+		this.ID = ID;
+	}
+	
 	public JSONObject serialize(){
 		try{
 			JSONObject obj = new JSONObject();
+			obj.put("ID", this.ID);
 			obj.put("position", position.serialize());
 			obj.put("velocity", velocity.serialize());
 			return obj;

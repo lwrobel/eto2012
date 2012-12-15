@@ -9,6 +9,7 @@ public class Player implements JSONSerializable{
 	public ArrayList <Element> elements = new ArrayList <Element>();
 	public Spaceship spaceship;
 	public Colour colour;
+	protected int ID = -1;
 	
 	public Player(Colour colour, Map map){
 		spaceship = new Spaceship(this, map);
@@ -22,6 +23,14 @@ public class Player implements JSONSerializable{
 		return spaceship;
 	}
 	
+	public int getID(){
+		return ID;
+	}
+	
+	public void setID(int ID){
+		this.ID = ID;
+	}
+	
 	public JSONObject serialize(){
 		try{
 			JSONObject obj = new JSONObject();
@@ -31,6 +40,7 @@ public class Player implements JSONSerializable{
 				elem.put(element.serialize());
 			}
 		
+			obj.put("ID", this.ID);
 			obj.put("elements", elem);
 			obj.put("spaceship", spaceship.serialize());
 			obj.put("colour", colour.serialize());

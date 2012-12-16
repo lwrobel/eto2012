@@ -2,7 +2,10 @@ package com.example.spaceshipgame.model;
 
 import java.util.Random;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 public class Element implements JSONSerializable{
 	private Vector	position;
@@ -78,6 +81,15 @@ public class Element implements JSONSerializable{
 		}
 		catch(Exception ex){
 			return null;
+		}
+	}
+	
+	public void deserialize(JSONObject obj) {
+		try {
+			position.deserialize(obj.getJSONObject("position"));
+			velocity.deserialize(obj.getJSONObject("velocity"));
+		} catch (JSONException ex) {
+			Log.e("Exception", ex.getLocalizedMessage());
 		}
 	}
 }

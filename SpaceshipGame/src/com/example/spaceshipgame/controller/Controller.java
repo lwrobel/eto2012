@@ -1,7 +1,10 @@
 package com.example.spaceshipgame.controller;
 
+import org.json.JSONObject;
+
 import com.example.spaceshipgame.model.*;
 import com.example.spaceshipgame.renderer.*;
+import com.example.spaceshipgame.server.ServerSide;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,12 +17,15 @@ public class Controller {
 	private SignalReceiver	signalReceiver;
 	private GameState		gameState;
 	private Activity		gameActivity;
+	private ServerSide		serverSide;
 
 	public Controller(Activity activity) {
 		gameActivity = activity;
 		gameState = new GameState();
 		mainRenderer = new MainRenderer(getGameContext(), gameState);
 		signalReceiver = new SignalReceiver(this);
+		serverSide = new ServerSide(this, gameState);
+		serverSide.refreshState();
 	}
 
 	public Activity getGameActivity() {
@@ -28,6 +34,10 @@ public class Controller {
 
 	public Context getGameContext() {
 		return gameActivity.getApplicationContext();
+	}
+
+	public void deserializeState(JSONObject data) {
+		gameState.deserialize(data);
 	}
 
 	public void changeState(int time) {

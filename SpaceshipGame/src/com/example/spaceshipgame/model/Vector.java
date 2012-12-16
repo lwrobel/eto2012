@@ -1,8 +1,10 @@
 package com.example.spaceshipgame.model;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.Point;
+import android.util.Log;
 
 public class Vector implements JSONSerializable{
 
@@ -125,6 +127,15 @@ public class Vector implements JSONSerializable{
 		}
 		catch(Exception ex){
 			return null;
+		}
+	}
+	
+	public void deserialize(JSONObject obj) {
+		try {
+			x = obj.getInt("x");
+			y = obj.getInt("y");
+		} catch (JSONException ex) {
+			Log.e("Exception", ex.getLocalizedMessage());
 		}
 	}
 }

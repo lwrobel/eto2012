@@ -1,9 +1,13 @@
 package com.example.spaceshipgame.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 public class Player implements JSONSerializable{
 	public ArrayList <Element> elements = new ArrayList <Element>();
@@ -49,5 +53,31 @@ public class Player implements JSONSerializable{
 		catch(Exception ex){
 			return null;
 		}
+	}
+	
+	public void deserialize(JSONObject obj) {
+		try {
+			spaceship.deserialize(obj.getJSONObject("spaceship"));
+			deserializeElements(obj.getJSONArray("missiles"));
+			colour.deserialize(obj.getJSONObject("colour"));
+		} catch (JSONException e) {
+		}
+	}
+	
+	private void deserializeElements(JSONArray elementsJSON) {
+		HashMap<Integer, JSONObject> hashMap = new HashMap<Integer, JSONObject>();	
+		for (int i = 0; i < elementsJSON.length(); ++i) {
+			try {
+				JSONObject missile = elementsJSON.getJSONObject(i);
+				int id = missile.getInt("ID");
+				hashMap.put(id, missile);
+			} catch (Exception ex) {
+				Log.e("Exception", ex.getMessage());
+			}
+		}
+
+		for (Element element : elements)
+			if (hashMap.containsKey(element.getID()))
+				element.deserialize(hashMap.get(element.getID()));
 	}
 }

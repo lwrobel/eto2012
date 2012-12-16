@@ -1,6 +1,9 @@
 package com.example.spaceshipgame.model;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 public class PlayerMoveState implements JSONSerializable{
 	public static boolean	ENABLE	= true;
@@ -60,6 +63,17 @@ public class PlayerMoveState implements JSONSerializable{
 		}
 		catch(Exception ex){
 			return null;
+		}
+	}
+	
+	public void deserialize(JSONObject obj) {
+		try {
+			movingLeft = obj.getBoolean("movingLeft");
+			movingRight = obj.getBoolean("movingRight");
+			movingUp = obj.getBoolean("movingUp");
+			movingDown = obj.getBoolean("movingDown");
+		} catch (JSONException ex) {
+			Log.e("Exception", ex.getLocalizedMessage());
 		}
 	}
 }

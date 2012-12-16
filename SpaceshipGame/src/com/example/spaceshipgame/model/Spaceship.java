@@ -1,6 +1,9 @@
 package com.example.spaceshipgame.model;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 public class Spaceship extends Element implements JSONSerializable{
 	private int		width, height;
@@ -34,6 +37,16 @@ public class Spaceship extends Element implements JSONSerializable{
 		}
 		catch(Exception ex){
 			return null;
+		}
+	}
+	
+	public void deserialize(JSONObject obj) {
+		try {
+			super.deserialize(obj);
+			width = obj.getInt("width");
+			height = obj.getInt("height");
+		} catch (JSONException ex) {
+			Log.e("Exception", ex.getLocalizedMessage());
 		}
 	}
 }

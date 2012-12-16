@@ -1,6 +1,9 @@
 package com.example.spaceshipgame.model;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 public class CurrentPlayer extends Player implements JSONSerializable{
 	public PlayerMoveState moveState;
@@ -18,6 +21,15 @@ public class CurrentPlayer extends Player implements JSONSerializable{
 		}
 		catch(Exception ex){
 			return null;
+		}
+	}
+	
+	public void deserialize(JSONObject obj) {
+		try {
+			super.deserialize(obj);
+			moveState.deserialize(obj.getJSONObject("moveState"));
+		} catch (JSONException ex) {
+			Log.e("Exception", ex.getMessage());
 		}
 	}
 }

@@ -59,7 +59,7 @@ public class SpaceshipRenderer extends ElementRenderer {
 				-rectBmp.getHeight() / 2);
 		matrix.postRotate(spaceship.getRotation());
 		matrix.postTranslate(spaceship.getPosition().getX() - mapCenter.x + screenSize.x / 2,
-				spaceship.getPosition().getY() - mapCenter.y + screenSize.y / 2 - 20);
+				spaceship.getPosition().getY() - mapCenter.y + screenSize.y / 2 );
 		canvas.drawBitmap(rectBmp, matrix, paint);
 	}
 }

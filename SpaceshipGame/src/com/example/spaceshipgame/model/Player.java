@@ -1,7 +1,8 @@
 package com.example.spaceshipgame.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,7 +11,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class Player implements IJSONSerializable{
-	public ArrayList <Element> elements = new ArrayList <Element>();
+	public List <Element> elements = new CopyOnWriteArrayList <Element>();
 	public Spaceship spaceship;
 	public Colour colour;
 	protected int ID = -1;

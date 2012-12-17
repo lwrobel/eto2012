@@ -1,9 +1,8 @@
 package com.example.spaceshipgame.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.json.*;
 
@@ -15,10 +14,10 @@ import android.util.Log;
  * @author Aleksandra Spyra
  */
 public class GameState implements IJSONSerializable {
-	public ArrayList<Player>	players	= new ArrayList<Player>();
-	public CurrentPlayer		currentInstancePlayer;
-	private ColourManager		colourManager;
-	public Map					map;
+	public List<Player>		players	= new CopyOnWriteArrayList<Player>();
+	public CurrentPlayer	currentInstancePlayer;
+	private ColourManager	colourManager;
+	public Map				map;
 
 	public GameState() {
 		map = new Map();
@@ -27,7 +26,7 @@ public class GameState implements IJSONSerializable {
 				colourManager.getUniqueColourRGB(), map);
 		currentInstancePlayer.setID(10);
 		players.add(currentInstancePlayer);
-		
+
 		for (int i = 0; i < 10; ++i) {
 			Player player = new Player(colourManager.getUniqueColourRGB(), map);
 			player.setID(i);
@@ -42,7 +41,7 @@ public class GameState implements IJSONSerializable {
 			Log.e("Exception", ex.getMessage());
 		}
 	}
-	
+
 	public void deserializePlayers(JSONArray playersJSON) {
 		HashMap<Integer, JSONObject> hashMap = new HashMap<Integer, JSONObject>();
 		for (int i = 0; i < playersJSON.length(); ++i)

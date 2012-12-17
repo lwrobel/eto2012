@@ -3,7 +3,6 @@ package com.example.spaceshipgame.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.bool;
 import android.graphics.Point;
 import android.util.Log;
 

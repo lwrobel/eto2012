@@ -36,18 +36,11 @@ class GameThread extends Thread {
 	public void run() {
 		while (mRun) {
 			Canvas c = null;
-			try {
-				c = mSurfaceHolder.lockCanvas(null);
-				synchronized (mSurfaceHolder) {
-					updatePhysics();
+			c = mSurfaceHolder.lockCanvas(null);
+			synchronized (mSurfaceHolder) {
+				updatePhysics();
+				if (c!=null) {
 					doDraw(c);
-				}
-			} catch (Exception ex) {
-				if (c != null) {
-					mSurfaceHolder.unlockCanvasAndPost(c);
-				}
-			} finally {
-				if (c != null) {
 					mSurfaceHolder.unlockCanvasAndPost(c);
 				}
 			}

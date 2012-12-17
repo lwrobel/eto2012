@@ -50,7 +50,7 @@ public class ServerSide {
 			player.put("ID", i);
 			player.put("missiles", missiles);
 			player.put("spaceship", spaceship);
-			player.put("colour", colour);
+			//player.put("colour", colour);
 
 			players.put(player);
 		}

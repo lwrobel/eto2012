@@ -16,14 +16,14 @@ import com.example.spaceshipgame.model.Spaceship;
 public class SpaceshipRenderer extends ElementRenderer {
 	Paint	paint	= new Paint();
 	Bitmap	spaceShipBmp;
-	Bitmap	bannerBmp;
+	Bitmap	rectBmp;
 
 	public SpaceshipRenderer(Context context) {
 		super(context);
 		spaceShipBmp = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.spaceship);
-		bannerBmp = BitmapFactory.decodeResource(context.getResources(),
-				R.drawable.banner);
+		rectBmp = BitmapFactory.decodeResource(context.getResources(),
+				R.drawable.rectangle);
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class SpaceshipRenderer extends ElementRenderer {
 				spaceship.getPosition().getY() - mapCenter.y + screenSize.y / 2);
 
 		canvas.drawBitmap(spaceShipBmp, matrix, null);
-		renderBanner(canvas, element, mapCenter, screenSize);
+		renderColourRect(canvas, element, mapCenter, screenSize);
 	}
 
-	private void renderBanner(Canvas canvas, Element element, Point mapCenter, Point screenSize) {
+	private void renderColourRect(Canvas canvas, Element element, Point mapCenter, Point screenSize) {
 		Spaceship spaceship = (Spaceship) element;
 
 		Paint paint = new Paint();
@@ -55,10 +55,11 @@ public class SpaceshipRenderer extends ElementRenderer {
 
 		Matrix matrix = new Matrix();
 		matrix.reset();
-		matrix.postTranslate(-bannerBmp.getWidth() / 2, -bannerBmp.getHeight() / 2);
+		matrix.postTranslate(-rectBmp.getWidth() / 2,
+				-rectBmp.getHeight() / 2);
 		matrix.postRotate(spaceship.getRotation());
 		matrix.postTranslate(spaceship.getPosition().getX() - mapCenter.x + screenSize.x / 2,
-				spaceship.getPosition().getY() - mapCenter.y + screenSize.y / 2);
-		canvas.drawBitmap(bannerBmp, matrix, paint);
+				spaceship.getPosition().getY() - mapCenter.y + screenSize.y / 2 - 20);
+		canvas.drawBitmap(rectBmp, matrix, paint);
 	}
 }

@@ -14,7 +14,7 @@ import android.util.Log;
  * 
  * @author Aleksandra Spyra
  */
-public class GameState implements JSONSerializable {
+public class GameState implements IJSONSerializable {
 	public ArrayList<Player>	players	= new ArrayList<Player>();
 	public CurrentPlayer		currentInstancePlayer;
 	private ColourManager		colourManager;
@@ -37,13 +37,13 @@ public class GameState implements JSONSerializable {
 
 	public void deserialize(JSONObject obj) {
 		try {
-			deserializePLayers(obj.getJSONArray("players"));
+			deserializePlayers(obj.getJSONArray("players"));
 		} catch (JSONException ex) {
 			Log.e("Exception", ex.getMessage());
 		}
 	}
 	
-	public void deserializePLayers(JSONArray playersJSON) {
+	public void deserializePlayers(JSONArray playersJSON) {
 		HashMap<Integer, JSONObject> hashMap = new HashMap<Integer, JSONObject>();
 		for (int i = 0; i < playersJSON.length(); ++i)
 			try {

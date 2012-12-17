@@ -55,6 +55,17 @@ public class Controller {
 					.getPosition()
 					.validate(new Point(0, 0), gameState.map.size,
 							gameState.map.MARGIN);
+			
+			for(Element element : player.elements) {
+				if (element instanceof CurrentMissile && ((CurrentMissile)element)
+						.moveState.getIsMoving() == MissileMoveState.ENABLE) {
+					element.moveAhead(time);
+					if (!element.getPosition().checkPosition (new Point(0, 0), gameState.map.size)) 
+						player.elements.remove(element);
+						// TODO delete from server
+						// element.setPosition(new Vector(-100, -100)); 
+				}
+			}
 		}
 	}
 
@@ -128,5 +139,14 @@ public class Controller {
 	}
 
 	public void onAttackPush() {
+		CurrentPlayer player = gameState.currentInstancePlayer;
+	 	CurrentMissile missile = new CurrentMissile(gameState.map);
+	 	missile.moveState.setIsMoving(MissileMoveState.ENABLE);
+	 	
+	 	synchronized(player) {
+	 		missile.setPosition(player.getSpaceship().getPosition());
+	 		missile.setVelocity(player.getSpaceship().getVelocity());
+	 		gameState.currentInstancePlayer.elements.add(missile);
+	 	}
 	}
 }

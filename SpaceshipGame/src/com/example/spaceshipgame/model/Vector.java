@@ -3,10 +3,11 @@ package com.example.spaceshipgame.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.bool;
 import android.graphics.Point;
 import android.util.Log;
 
-public class Vector implements JSONSerializable{
+public class Vector implements IJSONSerializable{
 
 	private float x,y;
 	
@@ -116,6 +117,19 @@ public class Vector implements JSONSerializable{
 		else if (y >= max.y -  margin.y)
 			y = max.y - margin.y;
 		set(x,y);
+	}
+	
+	public boolean checkPosition (Point min, Point max) {
+		x = getX();
+		y = getY();
+		
+		// TODO crash: check if is on other element + action?
+		
+		// if is out of board
+		if (x < min.x - 40 || x > max.x + 40 || y < min.y - 40 || y > max.y + 40)
+			return false;
+		else
+			return true;
 	}
 	
 	public JSONObject serialize(){

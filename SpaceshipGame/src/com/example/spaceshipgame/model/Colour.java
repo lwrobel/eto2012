@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class Colour implements JSONSerializable {
+public class Colour implements IJSONSerializable {
 	int	value;
 
 	public Colour(int value) {

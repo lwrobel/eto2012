@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class Player implements JSONSerializable{
+public class Player implements IJSONSerializable{
 	public ArrayList <Element> elements = new ArrayList <Element>();
 	public Spaceship spaceship;
 	public Colour colour;

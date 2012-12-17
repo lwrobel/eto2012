@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class CurrentPlayer extends Player implements JSONSerializable{
+public class CurrentPlayer extends Player implements IJSONSerializable{
 	public PlayerMoveState moveState;
 	
 	public CurrentPlayer(Colour colour, Map map) {

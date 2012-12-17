@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class PlayerMoveState implements JSONSerializable{
+public class PlayerMoveState implements IJSONSerializable{
 	public static boolean	ENABLE	= true;
 	public static boolean	DISABLE	= false;
 	private boolean			movingLeft;

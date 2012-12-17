@@ -60,10 +60,8 @@ public class ColourManager {
 		case 8:
 			return Color.RED;
 		case 9:
-			return Color.TRANSPARENT;
-		case 10:
 			return Color.WHITE;
-		case 11:
+		case 10:
 			return Color.YELLOW;
 		default:
 			return Color.BLACK;

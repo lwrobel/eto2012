@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class Missile extends Element implements JSONSerializable{
+public class Missile extends Element implements IJSONSerializable{
 	private int radius;
 	
 	public Missile (Map map) {

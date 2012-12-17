@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class Spaceship extends Element implements JSONSerializable{
+public class Spaceship extends Element implements IJSONSerializable{
 	private int		width, height;
 	private Player	player;
 

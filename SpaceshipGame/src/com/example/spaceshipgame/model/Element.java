@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class Element implements JSONSerializable{
+public class Element implements IJSONSerializable{
 	private Vector	position;
 	private Vector	velocity;
 	private int 	ID 	= -1;
@@ -33,6 +33,14 @@ public class Element implements JSONSerializable{
 		return velocity;
 	}
 
+	public void setPosition(Vector vector) {
+		position.set(vector);
+	}
+	
+	public void setVelocity(Vector vector) {
+	 	velocity.set(vector);
+	}
+	 	 
 	public float getRotation() {
 		return velocity.getAngle();
 	}

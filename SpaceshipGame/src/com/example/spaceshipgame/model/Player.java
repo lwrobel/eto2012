@@ -11,12 +11,14 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class Player implements IJSONSerializable{
+	public MoveState	moveState;
 	public List <Element> elements = new CopyOnWriteArrayList <Element>();
 	public Spaceship spaceship;
 	public Colour colour;
 	protected int ID = -1;
 	
 	public Player(Colour colour, Map map){
+		moveState = new MoveState();
 		spaceship = new Spaceship(this, map);
        	elements.add(spaceship);
        	

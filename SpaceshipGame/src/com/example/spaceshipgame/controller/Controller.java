@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.util.Log;
 import android.widget.Toast;
 
 public class Controller {
@@ -22,7 +23,8 @@ public class Controller {
 	public Controller(Activity activity) {
 		gameActivity = activity;
 		gameState = new GameState();
-		mainRenderer = new MainRenderer(getGameContext(), getGameActivity(), gameState);
+		mainRenderer = new MainRenderer(getGameContext(), getGameActivity(),
+				gameState);
 		signalReceiver = new SignalReceiver(this);
 		serverSide = new ServerSide(this, gameState);
 		serverSide.refreshState();
@@ -41,32 +43,32 @@ public class Controller {
 	}
 
 	public void changeState(int time) {
-		CurrentPlayer player = gameState.currentInstancePlayer;
-		synchronized (player) {
-			if (player.moveState.movingLeft() == PlayerMoveState.ENABLE)
-				player.spaceship.rotateLeft(time);
-			if (player.moveState.movingRight() == PlayerMoveState.ENABLE)
-				player.spaceship.rotateRight(time);
-			if (player.moveState.movingUp() == PlayerMoveState.ENABLE)
-				player.spaceship.moveAhead(time);
-			if (player.moveState.movingDown() == PlayerMoveState.ENABLE)
-				player.spaceship.moveBack(time);
-			player.getSpaceship()
-					.getPosition()
-					.validate(new Point(0, 0), gameState.map.size,
-							gameState.map.MARGIN);
-			
-			for(Element element : player.elements) {
-				if (element instanceof CurrentMissile && ((CurrentMissile)element)
-						.moveState.getIsMoving() == MissileMoveState.ENABLE) {
-					element.moveAhead(time);
-					if (!element.getPosition().checkPosition (new Point(0, 0), gameState.map.size)) 
-						player.elements.remove(element);
+		for (Player player : gameState.players)
+			synchronized (player) {
+				if (player.moveState.movingLeft() == MoveState.ENABLE)
+					player.spaceship.rotateLeft(time);
+				if (player.moveState.movingRight() == MoveState.ENABLE)
+					player.spaceship.rotateRight(time);
+				if (player.moveState.movingUp() == MoveState.ENABLE)
+					player.spaceship.moveAhead(time);
+				if (player.moveState.movingDown() == MoveState.ENABLE)
+					player.spaceship.moveBack(time);
+				player.getSpaceship()
+						.getPosition()
+						.validate(new Point(0, 0), gameState.map.size,
+								gameState.map.MARGIN);
+
+				for (Element element : player.elements)
+
+					if (element instanceof Missile) {
+						element.moveAhead(time);
+						if (!element.getPosition().checkPosition(
+								new Point(0, 0), gameState.map.size))
+							player.elements.remove(element);
 						// TODO delete from server
-						// element.setPosition(new Vector(-100, -100)); 
-				}
+						// element.setPosition(new Vector(-100, -100));
+					}
 			}
-		}
 	}
 
 	public void redraw(Canvas canvas) {
@@ -82,28 +84,28 @@ public class Controller {
 	public void onLeftRelease() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingLeft(PlayerMoveState.DISABLE);
+			player.moveState.movingLeft(MoveState.DISABLE);
 		}
 	}
 
 	public void onRightRelease() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingRight(PlayerMoveState.DISABLE);
+			player.moveState.movingRight(MoveState.DISABLE);
 		}
 	}
 
 	public void onUpRelease() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingUp(PlayerMoveState.DISABLE);
+			player.moveState.movingUp(MoveState.DISABLE);
 		}
 	}
 
 	public void onDownRelease() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingDown(PlayerMoveState.DISABLE);
+			player.moveState.movingDown(MoveState.DISABLE);
 		}
 	}
 
@@ -113,42 +115,41 @@ public class Controller {
 	public void onLeftPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingLeft(PlayerMoveState.ENABLE);
+			player.moveState.movingLeft(MoveState.ENABLE);
 		}
 	}
 
 	public void onRightPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingRight(PlayerMoveState.ENABLE);
+			player.moveState.movingRight(MoveState.ENABLE);
 		}
 	}
 
 	public void onDownPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (gameState.currentInstancePlayer) {
-			player.moveState.movingDown(PlayerMoveState.ENABLE);
+			player.moveState.movingDown(MoveState.ENABLE);
 		}
 	}
 
 	public void onUpPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingUp(PlayerMoveState.ENABLE);
+			player.moveState.movingUp(MoveState.ENABLE);
 		}
 	}
 
 	public void onAttackPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
-	 	CurrentMissile missile = new CurrentMissile(gameState.map);
-	 	missile.moveState.setIsMoving(MissileMoveState.ENABLE);
-	 	
-	 	synchronized(player) {
-	 		if (player.hasAmmunitionLeft()) {
-		 		missile.setPosition(player.getSpaceship().getPosition());
-		 		missile.setVelocity(player.getSpaceship().getVelocity());
-		 		player.attack(missile);
-	 		}
-	 	}
+		Missile missile = new Missile(gameState.map);
+
+		synchronized (player) {
+			if (player.hasAmmunitionLeft()) {
+				missile.setPosition(player.getSpaceship().getPosition());
+				missile.setVelocity(player.getSpaceship().getVelocity());
+				player.attack(missile);
+			}
+		}
 	}
 }

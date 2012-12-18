@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class PlayerMoveState implements IJSONSerializable{
+public class MoveState implements IJSONSerializable{
 	public static boolean	ENABLE	= true;
 	public static boolean	DISABLE	= false;
 	private boolean			movingLeft;
@@ -13,11 +13,11 @@ public class PlayerMoveState implements IJSONSerializable{
 	private boolean			movingUp;
 	private boolean			movingDown;
 
-	public PlayerMoveState() {
-		movingLeft = PlayerMoveState.DISABLE;
-		movingRight = PlayerMoveState.DISABLE;
-		movingUp = PlayerMoveState.DISABLE;
-		movingDown = PlayerMoveState.DISABLE;
+	public MoveState() {
+		movingLeft = MoveState.DISABLE;
+		movingRight = MoveState.DISABLE;
+		movingUp = MoveState.DISABLE;
+		movingDown = MoveState.DISABLE;
 	}
 
 	public void movingLeft(boolean state) {

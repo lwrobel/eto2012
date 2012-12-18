@@ -28,6 +28,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/button_left"
                 android:src="@drawable/left" />
 
@@ -38,6 +39,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/leftButton"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/button_right"
                 android:src="@drawable/right" />
 
@@ -48,6 +50,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/upButton"
                 android:layout_marginRight="5dp"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/button_down"
                 android:src="@drawable/down" />
 
@@ -58,6 +61,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/button_up"
                 android:src="@drawable/up" />
 
@@ -68,6 +72,7 @@
                 android:layout_above="@+id/upButton"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/button_attack"
                 android:src="@drawable/attack" />
         </RelativeLayout>

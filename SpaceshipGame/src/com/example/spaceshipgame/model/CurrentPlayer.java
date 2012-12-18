@@ -8,11 +8,12 @@ import android.util.Log;
 public class CurrentPlayer extends Player implements IJSONSerializable {
 	public PlayerMoveState	moveState;
 	private int				lifeLevel		= 50;	// 0-100
-	private int				ammunitionLevel	= 60;	// 0-100
+	private AmmunitionLevel	ammunitionLevel;
 
 	public CurrentPlayer(Colour colour, Map map) {
 		super(colour, map);
 		moveState = new PlayerMoveState();
+		ammunitionLevel = new AmmunitionLevel();
 	}
 
 	public int getLifeLevel() {
@@ -24,11 +25,7 @@ public class CurrentPlayer extends Player implements IJSONSerializable {
 	}
 
 	public int getAmmunitionLevel() {
-		return ammunitionLevel;
-	}
-
-	public void setAmmunitionLevel(int ammunitionLevel) {
-		this.ammunitionLevel = ammunitionLevel;
+		return ammunitionLevel.getAmmunitionLevel();
 	}
 
 	public JSONObject serialize() {
@@ -48,5 +45,14 @@ public class CurrentPlayer extends Player implements IJSONSerializable {
 		} catch (JSONException ex) {
 			Log.e("Exception", ex.getMessage());
 		}
+	}
+	
+	public boolean hasAmmunitionLeft() {
+		return ammunitionLevel.hasAmmunitionLeft();	
+	}
+	
+	public void attack(CurrentMissile missile) { 
+		elements.add(missile);
+		ammunitionLevel.attack();
 	}
 }

@@ -144,9 +144,11 @@ public class Controller {
 	 	missile.moveState.setIsMoving(MissileMoveState.ENABLE);
 	 	
 	 	synchronized(player) {
-	 		missile.setPosition(player.getSpaceship().getPosition());
-	 		missile.setVelocity(player.getSpaceship().getVelocity());
-	 		gameState.currentInstancePlayer.elements.add(missile);
+	 		if (player.hasAmmunitionLeft()) {
+		 		missile.setPosition(player.getSpaceship().getPosition());
+		 		missile.setVelocity(player.getSpaceship().getVelocity());
+		 		player.attack(missile);
+	 		}
 	 	}
 	}
 }

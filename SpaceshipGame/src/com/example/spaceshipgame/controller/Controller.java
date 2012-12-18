@@ -22,7 +22,7 @@ public class Controller {
 	public Controller(Activity activity) {
 		gameActivity = activity;
 		gameState = new GameState();
-		mainRenderer = new MainRenderer(getGameContext(), gameState);
+		mainRenderer = new MainRenderer(getGameContext(), getGameActivity(), gameState);
 		signalReceiver = new SignalReceiver(this);
 		serverSide = new ServerSide(this, gameState);
 		serverSide.refreshState();

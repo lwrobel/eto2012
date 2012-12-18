@@ -1,6 +1,7 @@
 package com.example.spaceshipgame.renderer;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,25 +11,37 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 
 import com.example.spaceshipgame.R;
 import com.example.spaceshipgame.model.*;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 public class MainRenderer {
-	private Point				screenSize;
-	private Point				mapCenter;
-	private Bitmap				background;
+	private Point			screenSize;
+	private Point			mapCenter;
+	private Bitmap			background;
 
-	ElementRendererFactory		elementRendererFactory;
-	Context						context;
+	ElementRendererFactory	elementRendererFactory;
+	Context					context;
+	Activity				activity;
 
-	public MainRenderer(Context context, GameState gameState) {
+	public MainRenderer(Context context, Activity activity, GameState gameState) {
 		this.context = context;
+		this.activity = activity;
 		elementRendererFactory = new ElementRendererFactory(context);
 		screenSize = getScreenSize();
 		mapCenter = getMapCenter(gameState);
 		createBackground();
+	}
+
+	private void updateProgressBar(GameState gameState) {
+		CurrentPlayer player= gameState.currentInstancePlayer;
+		ProgressBar lifeProgressBar = (ProgressBar) activity.findViewById(R.id.lifeProgressBar);
+		lifeProgressBar.setProgress(player.getLifeLevel());
+
+		ProgressBar ammunitionProgressBar = (ProgressBar) activity.findViewById(R.id.ammunitionProgressBar);
+		ammunitionProgressBar.setProgress(player.getAmmunitionLevel());
 	}
 
 	private Point getScreenSize() {
@@ -60,6 +73,7 @@ public class MainRenderer {
 				elementRenderer.render(canvas, element, mapCenter, screenSize);
 			}
 		}
+		updateProgressBar(gameState);
 	}
 
 	private void createBackground() {
@@ -95,8 +109,8 @@ public class MainRenderer {
 		Point mapSize = gameState.map.size;
 		int left, top;
 
-		left 	= calculateRenderMapCoord(mapSize.x, mapCenter.x, screenSize.x);
-		top 	= calculateRenderMapCoord(mapSize.y, mapCenter.y, screenSize.y);
+		left = calculateRenderMapCoord(mapSize.x, mapCenter.x, screenSize.x);
+		top = calculateRenderMapCoord(mapSize.y, mapCenter.y, screenSize.y);
 
 		left %= background.getWidth() / 2;
 		top %= background.getHeight() / 2;
@@ -106,20 +120,22 @@ public class MainRenderer {
 		Rect dst = new Rect(0, 0, screenSize.x, screenSize.y);
 		canvas.drawBitmap(background, src, dst, null);
 	}
-	
-	private int updateMapCoord(int mapCoord, int screenCoord, int marginCoord, int playerCoord){
-		if (mapCoord + screenCoord/2 - marginCoord < playerCoord)
-			return (playerCoord - screenCoord/2 + marginCoord);
-		if (mapCoord - screenCoord/2 + marginCoord > playerCoord)
-			return (playerCoord + screenCoord/2 - marginCoord);
+
+	private int updateMapCoord(int mapCoord, int screenCoord, int marginCoord,
+			int playerCoord) {
+		if (mapCoord + screenCoord / 2 - marginCoord < playerCoord)
+			return (playerCoord - screenCoord / 2 + marginCoord);
+		if (mapCoord - screenCoord / 2 + marginCoord > playerCoord)
+			return (playerCoord + screenCoord / 2 - marginCoord);
 		return mapCoord;
 	}
-	
-	private int calculateRenderMapCoord(int mapCoord, int mapCenterCoord, int screenCoord){
-		if (mapCenterCoord - screenCoord/2 < 0)
+
+	private int calculateRenderMapCoord(int mapCoord, int mapCenterCoord,
+			int screenCoord) {
+		if (mapCenterCoord - screenCoord / 2 < 0)
 			return 0;
-		if (mapCenterCoord + screenCoord/2 > mapCoord)
+		if (mapCenterCoord + screenCoord / 2 > mapCoord)
 			return (mapCoord - screenCoord);
-		return (mapCenterCoord - screenCoord/2);
+		return (mapCenterCoord - screenCoord / 2);
 	}
 }

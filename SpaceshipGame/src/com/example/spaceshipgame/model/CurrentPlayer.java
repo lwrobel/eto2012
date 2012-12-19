@@ -1,17 +1,22 @@
 package com.example.spaceshipgame.model;
 
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
 
 public class CurrentPlayer extends Player implements IJSONSerializable {
-	private int				lifeLevel		= 50;	// 0-100
-	private AmmunitionLevel	ammunitionLevel;
+	private static final int	MS_BETWEEN_ATTACK	= 200;
+	private int					lifeLevel			= 50;	// 0-100
+	private AmmunitionLevel		ammunitionLevel;
+	private Date				lastAttackTime;
 
 	public CurrentPlayer(Colour colour, Map map) {
 		super(colour, map);
 		ammunitionLevel = new AmmunitionLevel();
+		lastAttackTime = new Date();
 	}
 
 	public int getLifeLevel() {
@@ -44,13 +49,18 @@ public class CurrentPlayer extends Player implements IJSONSerializable {
 			Log.e("Exception", ex.getMessage());
 		}
 	}
-	
+
 	public boolean hasAmmunitionLeft() {
-		return ammunitionLevel.hasAmmunitionLeft();	
+		return ammunitionLevel.hasAmmunitionLeft();
 	}
-	
-	public void attack(Missile missile) { 
+
+	public void attack(Missile missile) {
 		elements.add(missile);
 		ammunitionLevel.attack();
+		lastAttackTime = new Date();
+	}
+
+	public boolean canAttack() {
+		return (new Date().getTime() - lastAttackTime.getTime() >= MS_BETWEEN_ATTACK);			
 	}
 }

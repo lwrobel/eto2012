@@ -12,12 +12,14 @@ public class MoveState implements IJSONSerializable{
 	private boolean			movingRight;
 	private boolean			movingUp;
 	private boolean			movingDown;
+	private boolean			attacking;
 
 	public MoveState() {
 		movingLeft = MoveState.DISABLE;
 		movingRight = MoveState.DISABLE;
 		movingUp = MoveState.DISABLE;
 		movingDown = MoveState.DISABLE;
+		attacking = MoveState.DISABLE;
 	}
 
 	public void movingLeft(boolean state) {
@@ -36,6 +38,10 @@ public class MoveState implements IJSONSerializable{
 		movingDown = state;
 	}
 
+	public void attacking(boolean state) {
+		attacking = state;
+	}
+	
 	public boolean movingLeft() {
 		return movingLeft;
 	}
@@ -52,6 +58,10 @@ public class MoveState implements IJSONSerializable{
 		return movingDown;
 	}
 	
+	public boolean attacking() {
+		return attacking;
+	}
+	
 	public JSONObject serialize(){
 		try{
 			JSONObject obj = new JSONObject();
@@ -59,6 +69,7 @@ public class MoveState implements IJSONSerializable{
 			obj.put("movingRight", movingRight);
 			obj.put("movingUp", movingUp);
 			obj.put("movingDown", movingDown);
+			obj.put("attacking", attacking);
 			return obj;
 		}
 		catch(Exception ex){
@@ -72,6 +83,7 @@ public class MoveState implements IJSONSerializable{
 			movingRight = obj.getBoolean("movingRight");
 			movingUp = obj.getBoolean("movingUp");
 			movingDown = obj.getBoolean("movingDown");
+			attacking = obj.getBoolean("attacking");
 		} catch (JSONException ex) {
 			Log.e("Exception", ex.getLocalizedMessage());
 		}

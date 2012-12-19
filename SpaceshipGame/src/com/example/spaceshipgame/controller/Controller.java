@@ -68,6 +68,18 @@ public class Controller {
 						// element.setPosition(new Vector(-100, -100));
 					}
 			}
+
+		synchronized (gameState.currentInstancePlayer) {
+			CurrentPlayer player = gameState.currentInstancePlayer;
+			if (player.moveState.attacking() == MoveState.ENABLE) {
+				Missile missile = new Missile(player, gameState.map);
+				if (player.canAttack() && player.hasAmmunitionLeft()) {
+					missile.setPosition(player.getSpaceship().getPosition());
+					missile.setVelocity(player.getSpaceship().getVelocity());
+					player.attack(missile);
+				}
+			}
+		}
 	}
 
 	public void redraw(Canvas canvas) {
@@ -109,6 +121,10 @@ public class Controller {
 	}
 
 	public void onAttackRelease() {
+		CurrentPlayer player = gameState.currentInstancePlayer;
+		synchronized (player) {
+			player.moveState.attacking(MoveState.DISABLE);
+		}
 	}
 
 	public void onLeftPush() {
@@ -141,14 +157,8 @@ public class Controller {
 
 	public void onAttackPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
-		Missile missile = new Missile(player, gameState.map);
-
 		synchronized (player) {
-			if (player.hasAmmunitionLeft()) {
-				missile.setPosition(player.getSpaceship().getPosition());
-				missile.setVelocity(player.getSpaceship().getVelocity());
-				player.attack(missile);
-			}
+			player.moveState.attacking(MoveState.ENABLE);
 		}
 	}
 }

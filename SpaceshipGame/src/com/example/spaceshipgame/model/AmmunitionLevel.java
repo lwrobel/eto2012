@@ -1,7 +1,7 @@
 package com.example.spaceshipgame.model;
 
 public class AmmunitionLevel {
-	private final static int	MAX_AMMUNITION	= 20;
+	private final static int	MAX_AMMUNITION	= 100;
 	private int					ammunition;
 
 	public AmmunitionLevel() {

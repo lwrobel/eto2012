@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.util.Log;
 import android.widget.Toast;
 
 public class Controller {
@@ -142,7 +141,7 @@ public class Controller {
 
 	public void onAttackPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
-		Missile missile = new Missile(gameState.map);
+		Missile missile = new Missile(player, gameState.map);
 
 		synchronized (player) {
 			if (player.hasAmmunitionLeft()) {

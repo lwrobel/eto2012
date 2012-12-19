@@ -20,10 +20,10 @@ public class Player implements IJSONSerializable{
 	public Player(Colour colour, Map map){
 		moveState = new MoveState();
 		spaceship = new Spaceship(this, map);
+		this.colour = colour;
+		
        	elements.add(spaceship);
-       	
-       	elements.add(new Missile(map));
-       	this.colour = colour;
+       	elements.add(new Missile(this, map));
 	}
 	
 	public Spaceship getSpaceship() {

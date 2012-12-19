@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -15,11 +16,14 @@ import com.example.spaceshipgame.model.Missile;
 public class MissileRenderer extends ElementRenderer {
 	Paint	paint	= new Paint();
 	Bitmap	missileBmp;
+	Bitmap	rectBmp;
 
 	public MissileRenderer(Context context) {
 		super(context);
 		missileBmp = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.missile);
+		rectBmp = BitmapFactory.decodeResource(context.getResources(),
+				R.drawable.rectangle_missile);
 	}
 
 	@Override
@@ -38,5 +42,26 @@ public class MissileRenderer extends ElementRenderer {
 				+ screenSize.y / 2);
 
 		canvas.drawBitmap(missileBmp, matrix, null);
+		renderColourRect(canvas, element, mapCenter, screenSize);
+	}
+
+	private void renderColourRect(Canvas canvas, Element element, Point mapCenter, Point screenSize) {
+		Missile missile = (Missile) element;
+
+		Paint paint = new Paint();
+		paint.setDither(true);
+		paint.setAntiAlias(true);
+		paint.setFilterBitmap(true);
+		paint.setColorFilter(new LightingColorFilter(0x00505050, missile
+				.colour().toAndroidColor()));
+
+		Matrix matrix = new Matrix();
+		matrix.reset();
+		matrix.postTranslate(-rectBmp.getWidth() / 2, -rectBmp.getHeight() / 2);
+		matrix.postRotate(missile.getRotation());
+		matrix.postTranslate(missile.getPosition().getX() - mapCenter.x
+				+ screenSize.x / 2, missile.getPosition().getY()
+				- mapCenter.y + screenSize.y / 2);
+		canvas.drawBitmap(rectBmp, matrix, paint);
 	}
 }

@@ -23,7 +23,7 @@ public class SpaceshipRenderer extends ElementRenderer {
 		spaceShipBmp = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.spaceship);
 		rectBmp = BitmapFactory.decodeResource(context.getResources(),
-				R.drawable.rectangle);
+				R.drawable.rectangle_spaceship);
 	}
 
 	@Override

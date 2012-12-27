@@ -10,6 +10,9 @@ import android.util.Log;
 public class Element implements IJSONSerializable{
 	private Vector	position;
 	private Vector	velocity;
+	private double 	maxVelocityValue;
+	private double 	acceleration;
+	
 	private int 	ID 	= -1;
 
 	Random			r	= new Random();
@@ -19,6 +22,9 @@ public class Element implements IJSONSerializable{
 				+ map.MARGIN.x, r.nextInt(map.size.y - map.MARGIN.y * 2)
 				+ map.MARGIN.y);
 		velocity = new Vector(r.nextInt(360), 10.0);
+		
+		acceleration = 0.1;
+		maxVelocityValue = 15.0;
 	}
 
 	public Element(Vector position) {
@@ -32,7 +38,15 @@ public class Element implements IJSONSerializable{
 	public Vector getVelocity() {
 		return velocity;
 	}
+	
+	public double getAcceleration() {
+		return acceleration;
+	}
 
+	public double getMaxVelocity() {
+		return maxVelocityValue;
+	}
+	
 	public void setPosition(Vector vector) {
 		position.set(vector);
 	}
@@ -41,6 +55,14 @@ public class Element implements IJSONSerializable{
 	 	velocity.set(vector);
 	}
 	 	 
+	public void setAcceleration(float acceleration) {
+		this.acceleration = acceleration;
+	}
+	
+	public void setMaxVelocity(double value) {
+	 	maxVelocityValue = value;
+	}
+	
 	public float getRotation() {
 		return velocity.getAngle();
 	}
@@ -54,6 +76,16 @@ public class Element implements IJSONSerializable{
 		position.add(velocity);
 	}
 
+	public void increaseSpeed(int time) {
+		// TODO use time in moving
+		velocity.increaseValue(acceleration);
+	}
+	
+	public void decreaseSpeed(int time) {
+		// TODO use time in moving
+		velocity.decreaseValue(acceleration);
+	}
+	
 	public void moveBack(int time) {
 		// TODO use time in moving
 		position.sub(velocity);

@@ -44,14 +44,58 @@ public class Controller {
 	public void changeState(int time) {
 		for (Player player : gameState.players)
 			synchronized (player) {
-				if (player.moveState.movingLeft() == MoveState.ENABLE)
+				
+				if (player.moveState.movingLeft() == MoveState.State.ENABLE)
 					player.spaceship.rotateLeft(time);
-				if (player.moveState.movingRight() == MoveState.ENABLE)
+				if (player.moveState.movingRight() == MoveState.State.ENABLE)
 					player.spaceship.rotateRight(time);
-				if (player.moveState.movingUp() == MoveState.ENABLE)
+				
+				
+				if (player.moveState.movingUp() == MoveState.State.ACCELERATE) {
+					player.spaceship.increaseSpeed(time);
+					
+					if(player.spaceship.getVelocity().getValue() >= player.spaceship.getMaxVelocity()) {
+						
+						player.spaceship.getVelocity().setValue(player.spaceship.getMaxVelocity());
+						player.moveState.movingUp(MoveState.State.ENABLE);
+					}
+					
 					player.spaceship.moveAhead(time);
-				if (player.moveState.movingDown() == MoveState.ENABLE)
+					
+				} else if (player.moveState.movingUp() == MoveState.State.SLOW) {
+					player.spaceship.decreaseSpeed(time);
+					player.spaceship.moveAhead(time);
+					
+					if(player.spaceship.getVelocity().getValue() <= 2.0)
+						player.moveState.movingUp(MoveState.State.DISABLE);
+					
+				} else if (player.moveState.movingUp() == MoveState.State.ENABLE) {
+					player.spaceship.moveAhead(time);
+				}
+				
+				
+				
+				if (player.moveState.movingDown() == MoveState.State.ACCELERATE) {
+					player.spaceship.increaseSpeed(time);
 					player.spaceship.moveBack(time);
+					
+					if(player.spaceship.getVelocity().getValue() >= player.spaceship.getMaxVelocity()) {
+						
+						player.spaceship.getVelocity().setValue(player.spaceship.getMaxVelocity());
+						player.moveState.movingDown(MoveState.State.ENABLE);
+					}
+					
+				} else if (player.moveState.movingDown() == MoveState.State.SLOW) {
+					player.spaceship.decreaseSpeed(time);
+					player.spaceship.moveBack(time);
+					
+					if(player.spaceship.getVelocity().getValue() <= 2.0)
+						player.moveState.movingDown(MoveState.State.DISABLE);
+					
+				} else if (player.moveState.movingDown() == MoveState.State.ENABLE) {
+					player.spaceship.moveBack(time);
+				}
+				
 				player.getSpaceship()
 						.getPosition()
 						.validate(new Point(0, 0), gameState.map.size,
@@ -71,11 +115,11 @@ public class Controller {
 
 		synchronized (gameState.currentInstancePlayer) {
 			CurrentPlayer player = gameState.currentInstancePlayer;
-			if (player.moveState.attacking() == MoveState.ENABLE) {
+			if (player.moveState.attacking() == MoveState.State.ENABLE) {
 				Missile missile = new Missile(player, gameState.map);
 				if (player.canAttack() && player.hasAmmunitionLeft()) {
 					missile.setPosition(player.getSpaceship().getPosition());
-					missile.setVelocity(player.getSpaceship().getVelocity());
+					missile.setVelocity(new Vector(player.getSpaceship().getVelocity().getAngle(), 10.0));
 					player.attack(missile);
 				}
 			}
@@ -95,70 +139,87 @@ public class Controller {
 	public void onLeftRelease() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingLeft(MoveState.DISABLE);
+			player.moveState.movingLeft(MoveState.State.DISABLE);
 		}
 	}
 
 	public void onRightRelease() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingRight(MoveState.DISABLE);
+			player.moveState.movingRight(MoveState.State.DISABLE);
 		}
 	}
 
 	public void onUpRelease() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
+		
 		synchronized (player) {
-			player.moveState.movingUp(MoveState.DISABLE);
+			player.moveState.movingUp(MoveState.State.SLOW);
 		}
 	}
 
 	public void onDownRelease() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingDown(MoveState.DISABLE);
+			player.moveState.movingDown(MoveState.State.SLOW);
 		}
 	}
 
 	public void onAttackRelease() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.attacking(MoveState.DISABLE);
+			player.moveState.attacking(MoveState.State.DISABLE);
 		}
 	}
 
 	public void onLeftPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingLeft(MoveState.ENABLE);
+			player.moveState.movingLeft(MoveState.State.ENABLE);
 		}
 	}
 
 	public void onRightPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.movingRight(MoveState.ENABLE);
+			player.moveState.movingRight(MoveState.State.ENABLE);
 		}
 	}
 
 	public void onDownPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
+		
 		synchronized (gameState.currentInstancePlayer) {
-			player.moveState.movingDown(MoveState.ENABLE);
+			
+			if(player.moveState.movingUp() != MoveState.State.DISABLE) {
+				player.moveState.movingUp(MoveState.State.DISABLE);
+				player.getSpaceship().getVelocity().setValue(2.0);
+			}
+
+			player.moveState.movingDown(MoveState.State.ACCELERATE);
 		}
+		
 	}
 
 	public void onUpPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
+
 		synchronized (player) {
-			player.moveState.movingUp(MoveState.ENABLE);
+			
+			if(player.moveState.movingDown() != MoveState.State.DISABLE) {
+				player.moveState.movingDown(MoveState.State.DISABLE);
+				player.getSpaceship().getVelocity().setValue(2.0);
+			}
+			
+			player.moveState.movingUp(MoveState.State.ACCELERATE);
 		}
+		
 	}
 
 	public void onAttackPush() {
 		CurrentPlayer player = gameState.currentInstancePlayer;
 		synchronized (player) {
-			player.moveState.attacking(MoveState.ENABLE);
+			player.moveState.attacking(MoveState.State.ENABLE);
 		}
 	}
 }

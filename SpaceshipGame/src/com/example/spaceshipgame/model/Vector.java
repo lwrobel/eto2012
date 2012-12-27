@@ -57,6 +57,32 @@ public class Vector implements IJSONSerializable{
 		this.y = y;
 	}
 	
+	public void setValue(double value) {
+	
+		float angle = this.getAngle();
+		double angleInRadius = angle * (Math.PI / (double)180);
+		
+		x = (float) (value * Math.cos( angleInRadius ));
+		y = (float) (value * Math.sin( angleInRadius ) );
+	
+	}
+	
+	public void increaseValue(double value) {
+		
+		float angle = this.getAngle();
+		double angleInRadius = angle * (Math.PI / (double)180);
+		
+		x = (float) ((this.getValue()+value) * Math.cos( angleInRadius ));
+		y = (float) ((this.getValue()+value) * Math.sin( angleInRadius ) );
+		
+	}
+	
+	public void decreaseValue(double value) {
+		
+		this.increaseValue(-value);
+		
+	}
+	
 	public float getX() {
 		return x;
 	}

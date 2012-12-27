@@ -6,70 +6,96 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class MoveState implements IJSONSerializable{
-	public static boolean	ENABLE	= true;
-	public static boolean	DISABLE	= false;
-	private boolean			movingLeft;
-	private boolean			movingRight;
-	private boolean			movingUp;
-	private boolean			movingDown;
-	private boolean			attacking;
+	
+	public static enum State { ENABLE(0), DISABLE(1), ACCELERATE(2), SLOW(3);
+
+		private int value;
+		
+		private State(int value) {
+	        this.value = value;
+	    }
+		public int getValue() {
+			
+			return value;
+		} 
+	};
+	
+	//public static boolean	ENABLE	= true;
+	//public static boolean	DISABLE	= false;
+	
+	private State			movingLeft;
+	private State			movingRight;
+	private State			movingUp;
+	private State			movingDown;
+	private State			attacking;
 
 	public MoveState() {
-		movingLeft = MoveState.DISABLE;
-		movingRight = MoveState.DISABLE;
-		movingUp = MoveState.DISABLE;
-		movingDown = MoveState.DISABLE;
-		attacking = MoveState.DISABLE;
+		movingLeft = State.DISABLE;
+		movingRight = State.DISABLE;
+		movingUp = State.DISABLE;
+		movingDown = State.DISABLE;
+		attacking = State.DISABLE;
 	}
 
-	public void movingLeft(boolean state) {
+	public void movingLeft(State state) {
 		movingLeft = state;
 	}
 
-	public void movingRight(boolean state) {
+	public void movingRight(State state) {
 		movingRight = state;
 	}
 
-	public void movingUp(boolean state) {
+	public void movingUp(State state) {
 		movingUp = state;
 	}
 
-	public void movingDown(boolean state) {
+	public void movingDown(State state) {
 		movingDown = state;
 	}
 
-	public void attacking(boolean state) {
+	public void attacking(State state) {
 		attacking = state;
 	}
 	
-	public boolean movingLeft() {
+	public State movingLeft() {
 		return movingLeft;
 	}
 
-	public boolean movingRight() {
+	public State movingRight() {
 		return movingRight;
 	}
 
-	public boolean movingUp() {
+	public State movingUp() {
 		return movingUp;
 	}
 
-	public boolean movingDown() {
+	public State movingDown() {
 		return movingDown;
 	}
 	
-	public boolean attacking() {
+	public State attacking() {
 		return attacking;
 	}
+	
+	public static State valueOf(int value) {
+		State[] valueEnums = State.values();
+        for (State valueEnum : valueEnums) {
+            if (valueEnum.getValue() == value)
+            {
+                return valueEnum;
+            }
+        }
+        return State.DISABLE;
+    }
 	
 	public JSONObject serialize(){
 		try{
 			JSONObject obj = new JSONObject();
-			obj.put("movingLeft", movingLeft);
-			obj.put("movingRight", movingRight);
-			obj.put("movingUp", movingUp);
-			obj.put("movingDown", movingDown);
-			obj.put("attacking", attacking);
+			obj.put("movingLeft", movingLeft.getValue());
+			obj.put("movingRight", movingRight.getValue());
+			obj.put("movingUp", movingUp.getValue());
+			obj.put("movingDown", movingDown.getValue());
+			obj.put("attacking", attacking.getValue());
 			return obj;
 		}
 		catch(Exception ex){
@@ -79,11 +105,12 @@ public class MoveState implements IJSONSerializable{
 	
 	public void deserialize(JSONObject obj) {
 		try {
-			movingLeft = obj.getBoolean("movingLeft");
-			movingRight = obj.getBoolean("movingRight");
-			movingUp = obj.getBoolean("movingUp");
-			movingDown = obj.getBoolean("movingDown");
-			attacking = obj.getBoolean("attacking");
+			
+			movingLeft = valueOf(obj.getInt("movingLeft"));
+			movingRight = valueOf(obj.getInt("movingRight"));
+			movingUp = valueOf(obj.getInt("movingUp"));
+			movingDown = valueOf(obj.getInt("movingDown"));
+			attacking = valueOf(obj.getInt("attacking"));
 		} catch (JSONException ex) {
 			Log.e("Exception", ex.getLocalizedMessage());
 		}

@@ -12,8 +12,8 @@ public class Spaceship extends Element implements IJSONSerializable{
 	public Spaceship(Player player, Map map) {
 		super(map);
 		this.player = player;
-		width = r.nextInt(50) + 10;
-		height = r.nextInt(50) + 10;
+		width = r.nextInt(50) + 300;
+		height = r.nextInt(50) + 300;
 	}
 
 	public Colour colour() {

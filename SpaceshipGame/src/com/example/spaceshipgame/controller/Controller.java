@@ -118,8 +118,15 @@ public class Controller {
 			if (player.moveState.attacking() == MoveState.State.ENABLE) {
 				Missile missile = new Missile(player, gameState.map);
 				if (player.canAttack() && player.hasAmmunitionLeft()) {
-					missile.setPosition(player.getSpaceship().getPosition());
-					missile.setVelocity(new Vector(player.getSpaceship().getVelocity().getAngle(), 10.0));
+					
+					Vector missilePosition = new Vector(player.getSpaceship().getPosition());
+					
+					Vector missileShift = new Vector(player.getSpaceship().getVelocity());
+					missileShift.setValue(player.getSpaceship().getHeigt()/2.0);
+					missilePosition.add(missileShift);
+					
+					missile.setPosition(missilePosition);
+					missile.setVelocity(new Vector(player.getSpaceship().getVelocity().getAngle(), 15.0));
 					player.attack(missile);
 				}
 			}

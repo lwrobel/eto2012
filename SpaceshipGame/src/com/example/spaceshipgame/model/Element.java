@@ -21,9 +21,9 @@ public class Element implements IJSONSerializable{
 		position = new Vector(r.nextInt(map.size.x - map.MARGIN.x * 2)
 				+ map.MARGIN.x, r.nextInt(map.size.y - map.MARGIN.y * 2)
 				+ map.MARGIN.y);
-		velocity = new Vector(r.nextInt(360), 10.0);
+		velocity = new Vector(r.nextInt(360), 2.0);
 		
-		acceleration = 0.1;
+		acceleration = 0.2;
 		maxVelocityValue = 15.0;
 	}
 

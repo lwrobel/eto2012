@@ -2,19 +2,25 @@ net = require('net')
 
 class GameServer
   constructor: ->
-    @HOST = '127.0.0.1'
+    @HOST = '192.168.1.100' #use your local server ip
     @PORT = 6969
+
+    @gameState = {'aaa':'bbb', 'ccc':'ddd'} #TODO
 
     @server = net.createServer (socket) =>
       remoteAddress = socket.remoteAddress
       remotePORT = socket.remotePort
 
       console.log("CONNECTED: #{remoteAddress}:#{remotePORT}")
-      socket.write('Welcome!')
 
       socket.on 'data', (data) => 
         console.log("DATA #{remoteAddress}:#{data}")
-        socket.write('You said "' + data + '"')
+        json = JSON.parse(data.toString())
+        console.log(json)
+        if json.type == 'get' and json.object == 'gameState'
+          socket.write JSON.stringify {status: 'ok', object: 'gameState', data: @gameState}
+        else
+          socket.write JSON.stringify {status: 'error', error: 'badRequest'}
 
       socket.on 'close', (data) =>
         console.log("CLOSED: #{remoteAddress}:#{remotePORT}")

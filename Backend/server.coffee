@@ -23,6 +23,4 @@ class GameServer
     console.log("Server listening on #{@HOST}:#{@PORT}")
     @server.listen(@PORT, @HOST)
 
-new GameServer().listen()
-
-
+module.exports = [GameServer]

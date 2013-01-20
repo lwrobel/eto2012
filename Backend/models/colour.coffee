@@ -1,4 +1,7 @@
 class Colour
-  constructor: ->
+  constructor: (@value) ->
+
+	toAndroidColor: ->
+		@value
 
 module.exports = [Colour]

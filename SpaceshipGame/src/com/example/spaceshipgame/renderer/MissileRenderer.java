@@ -7,9 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Point;
 
 import com.example.spaceshipgame.R;
+import com.example.spaceshipgame.model.DoublePoint;
 import com.example.spaceshipgame.model.Element;
 import com.example.spaceshipgame.model.Missile;
 
@@ -27,8 +27,8 @@ public class MissileRenderer extends ElementRenderer {
 	}
 
 	@Override
-	public void render(Canvas canvas, Element element, Point mapCenter,
-			Point screenSize) {
+	public void render(Canvas canvas, Element element, DoublePoint mapCenter,
+			DoublePoint screenSize) {
 		super.render(canvas, element, mapCenter, screenSize);
 		Missile missile = (Missile) element;
 
@@ -36,16 +36,16 @@ public class MissileRenderer extends ElementRenderer {
 		matrix.reset();
 		matrix.postTranslate(-missileBmp.getWidth() / 2,
 				-missileBmp.getHeight() / 2);
-		matrix.postRotate(missile.getRotation());
-		matrix.postTranslate(missile.getPosition().getX() - mapCenter.x
-				+ screenSize.x / 2, missile.getPosition().getY() - mapCenter.y
-				+ screenSize.y / 2);
+		matrix.postRotate((float)missile.getRotation());
+		matrix.postTranslate((float)(missile.getPosition().x - mapCenter.x
+				+ screenSize.x / 2), (float)(missile.getPosition().y - mapCenter.y
+				+ screenSize.y / 2));
 
 		canvas.drawBitmap(missileBmp, matrix, null);
 		renderColourRect(canvas, element, mapCenter, screenSize);
 	}
 
-	private void renderColourRect(Canvas canvas, Element element, Point mapCenter, Point screenSize) {
+	private void renderColourRect(Canvas canvas, Element element, DoublePoint mapCenter, DoublePoint screenSize) {
 		Missile missile = (Missile) element;
 
 		Paint paint = new Paint();
@@ -58,10 +58,10 @@ public class MissileRenderer extends ElementRenderer {
 		Matrix matrix = new Matrix();
 		matrix.reset();
 		matrix.postTranslate(-rectBmp.getWidth() / 2, -rectBmp.getHeight() / 2);
-		matrix.postRotate(missile.getRotation());
-		matrix.postTranslate(missile.getPosition().getX() - mapCenter.x
-				+ screenSize.x / 2, missile.getPosition().getY()
-				- mapCenter.y + screenSize.y / 2);
+		matrix.postRotate((float)missile.getRotation());
+		matrix.postTranslate((float)(missile.getPosition().x - mapCenter.x
+				+ screenSize.x / 2), (float)(missile.getPosition().y
+				- mapCenter.y + screenSize.y / 2));
 		canvas.drawBitmap(rectBmp, matrix, paint);
 	}
 }

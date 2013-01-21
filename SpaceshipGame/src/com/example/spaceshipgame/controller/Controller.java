@@ -9,7 +9,6 @@ import com.example.spaceshipgame.server.ServerSide;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.widget.Toast;
 
 public class Controller {
@@ -54,9 +53,9 @@ public class Controller {
 				if (player.moveState.movingUp() == MoveState.State.ACCELERATE) {
 					player.spaceship.increaseSpeed(time);
 					
-					if(player.spaceship.getVelocity().getValue() >= player.spaceship.getMaxVelocity()) {
+					if(player.spaceship.getVelocity() >= player.spaceship.getMaxVelocity()) {
 						
-						player.spaceship.getVelocity().setValue(player.spaceship.getMaxVelocity());
+						player.spaceship.setVelocity(player.spaceship.getMaxVelocity());
 						player.moveState.movingUp(MoveState.State.ENABLE);
 					}
 					
@@ -66,7 +65,7 @@ public class Controller {
 					player.spaceship.decreaseSpeed(time);
 					player.spaceship.moveAhead(time);
 					
-					if(player.spaceship.getVelocity().getValue() <= 2.0)
+					if(player.spaceship.getVelocity() <= 2.0)
 						player.moveState.movingUp(MoveState.State.DISABLE);
 					
 				} else if (player.moveState.movingUp() == MoveState.State.ENABLE) {
@@ -79,9 +78,9 @@ public class Controller {
 					player.spaceship.increaseSpeed(time);
 					player.spaceship.moveBack(time);
 					
-					if(player.spaceship.getVelocity().getValue() >= player.spaceship.getMaxVelocity()) {
+					if(player.spaceship.getVelocity() >= player.spaceship.getMaxVelocity()) {
 						
-						player.spaceship.getVelocity().setValue(player.spaceship.getMaxVelocity());
+						player.spaceship.setVelocity(player.spaceship.getMaxVelocity());
 						player.moveState.movingDown(MoveState.State.ENABLE);
 					}
 					
@@ -89,7 +88,7 @@ public class Controller {
 					player.spaceship.decreaseSpeed(time);
 					player.spaceship.moveBack(time);
 					
-					if(player.spaceship.getVelocity().getValue() <= 2.0)
+					if(player.spaceship.getVelocity() <= 2.0)
 						player.moveState.movingDown(MoveState.State.DISABLE);
 					
 				} else if (player.moveState.movingDown() == MoveState.State.ENABLE) {
@@ -97,16 +96,15 @@ public class Controller {
 				}
 				
 				player.getSpaceship()
-						.getPosition()
-						.validate(new Point(0, 0), gameState.map.size,
+						.validatePosition(new DoublePoint(0, 0), gameState.map.size,
 								gameState.map.MARGIN);
 
 				for (Element element : player.elements)
 
 					if (element instanceof Missile) {
 						element.moveAhead(time);
-						if (!element.getPosition().checkPosition(
-								new Point(0, 0), gameState.map.size))
+						if (!element.checkPosition(
+								new DoublePoint(0, 0), gameState.map.size))
 							player.elements.remove(element);
 						// TODO delete from server
 						// element.setPosition(new Vector(-100, -100));
@@ -119,14 +117,15 @@ public class Controller {
 				Missile missile = new Missile(player, gameState.map);
 				if (player.canAttack() && player.hasAmmunitionLeft()) {
 					
-					Vector missilePosition = new Vector(player.getSpaceship().getPosition());
+					DoublePoint missilePosition = new DoublePoint(player.getSpaceship().getPosition());
 					
-					Vector missileShift = new Vector(player.getSpaceship().getVelocity());
-					missileShift.setValue(player.getSpaceship().getHeigt()/2.0);
-					missilePosition.add(missileShift);
+					DoublePoint missileShift = new DoublePoint();
+					missileShift.setByAngleAndLength(player.getSpaceship().getRotation(), player.getSpaceship().getHeigt()/2.0);
+					missilePosition.addVector(missileShift);
 					
+					missile.setRotation(player.getSpaceship().getRotation());
 					missile.setPosition(missilePosition);
-					missile.setVelocity(new Vector(player.getSpaceship().getVelocity().getAngle(), 15.0));
+					missile.setVelocity(15.0);
 					player.attack(missile);
 				}
 			}
@@ -200,7 +199,7 @@ public class Controller {
 			
 			if(player.moveState.movingUp() != MoveState.State.DISABLE) {
 				player.moveState.movingUp(MoveState.State.DISABLE);
-				player.getSpaceship().getVelocity().setValue(2.0);
+				player.getSpaceship().setVelocity(2.0);
 			}
 
 			player.moveState.movingDown(MoveState.State.ACCELERATE);
@@ -215,7 +214,7 @@ public class Controller {
 			
 			if(player.moveState.movingDown() != MoveState.State.DISABLE) {
 				player.moveState.movingDown(MoveState.State.DISABLE);
-				player.getSpaceship().getVelocity().setValue(2.0);
+				player.getSpaceship().setVelocity(2.0);
 			}
 			
 			player.moveState.movingUp(MoveState.State.ACCELERATE);

@@ -7,9 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Point;
 
 import com.example.spaceshipgame.R;
+import com.example.spaceshipgame.model.DoublePoint;
 import com.example.spaceshipgame.model.Element;
 import com.example.spaceshipgame.model.Spaceship;
 
@@ -27,7 +27,7 @@ public class SpaceshipRenderer extends ElementRenderer {
 	}
 
 	@Override
-	public void render(Canvas canvas, Element element, Point mapCenter, Point screenSize) {
+	public void render(Canvas canvas, Element element, DoublePoint mapCenter, DoublePoint screenSize) {
 		super.render(canvas, element, mapCenter, screenSize);
 		Spaceship spaceship = (Spaceship) element;
 
@@ -35,15 +35,15 @@ public class SpaceshipRenderer extends ElementRenderer {
 		matrix.reset();
 		matrix.postTranslate(-spaceShipBmp.getWidth() / 2,
 				-spaceShipBmp.getHeight() / 2);
-		matrix.postRotate(spaceship.getRotation());
-		matrix.postTranslate(spaceship.getPosition().getX() - mapCenter.x + screenSize.x / 2,
-				spaceship.getPosition().getY() - mapCenter.y + screenSize.y / 2);
+		matrix.postRotate((float)spaceship.getRotation());
+		matrix.postTranslate((float)(spaceship.getPosition().x - mapCenter.x + screenSize.x / 2),
+				(float)(spaceship.getPosition().y - mapCenter.y + screenSize.y / 2));
 
 		canvas.drawBitmap(spaceShipBmp, matrix, null);
 		renderColourRect(canvas, element, mapCenter, screenSize);
 	}
 
-	private void renderColourRect(Canvas canvas, Element element, Point mapCenter, Point screenSize) {
+	private void renderColourRect(Canvas canvas, Element element, DoublePoint mapCenter, DoublePoint screenSize) {
 		Spaceship spaceship = (Spaceship) element;
 
 		Paint paint = new Paint();
@@ -57,9 +57,9 @@ public class SpaceshipRenderer extends ElementRenderer {
 		matrix.reset();
 		matrix.postTranslate(-rectBmp.getWidth() / 2,
 				-rectBmp.getHeight() / 2);
-		matrix.postRotate(spaceship.getRotation());
-		matrix.postTranslate(spaceship.getPosition().getX() - mapCenter.x + screenSize.x / 2,
-				spaceship.getPosition().getY() - mapCenter.y + screenSize.y / 2 );
+		matrix.postRotate((float)spaceship.getRotation());
+		matrix.postTranslate((float)(spaceship.getPosition().x - mapCenter.x + screenSize.x / 2),
+				(float)(spaceship.getPosition().y - mapCenter.y + screenSize.y / 2 ));
 		canvas.drawBitmap(rectBmp, matrix, paint);
 	}
 }

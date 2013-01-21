@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -18,9 +17,9 @@ import com.example.spaceshipgame.model.*;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 public class MainRenderer {
-	private Point			screenSize;
-	private Point			mapCenter;
-	private Bitmap			background;
+	private DoublePoint			screenSize;
+	private DoublePoint			mapCenter;
+	private Bitmap				background;
 
 	ElementRendererFactory	elementRendererFactory;
 	Context					context;
@@ -44,23 +43,23 @@ public class MainRenderer {
 		ammunitionProgressBar.setProgress(player.getAmmunitionLevel());
 	}
 
-	private Point getScreenSize() {
+	private DoublePoint getScreenSize() {
 		WindowManager wm = (WindowManager) context
 				.getSystemService(Context.WINDOW_SERVICE);
 		DisplayMetrics dm = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(dm);
-		return new Point(dm.widthPixels, dm.heightPixels);
+		return new DoublePoint(dm.widthPixels, dm.heightPixels);
 	}
 
-	private Point getMapCenter(GameState gameState) {
+	private DoublePoint getMapCenter(GameState gameState) {
 		int x, y;
 		Spaceship s = gameState.currentInstancePlayer.getSpaceship();
 		Map m = gameState.map;
-		x = Math.max((int) s.getPosition().getX(), screenSize.x / 2);
-		y = Math.max((int) s.getPosition().getY(), screenSize.y / 2);
-		x = Math.min(x, m.size.x - screenSize.x / 2);
-		y = Math.min(y, m.size.y - screenSize.y / 2);
-		return new Point(x, y);
+		x = Math.max((int) s.getPosition().x, (int) screenSize.x / 2);
+		y = Math.max((int) s.getPosition().y, (int) screenSize.y / 2);
+		x = Math.min(x, (int) (m.size.x - screenSize.x / 2));
+		y = Math.min(y, (int) (m.size.y - screenSize.y / 2));
+		return new DoublePoint(x, y);
 	}
 
 	public void render(Canvas canvas, GameState gameState) {
@@ -80,44 +79,44 @@ public class MainRenderer {
 		Bitmap bmp = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.background);
 
-		Bitmap bmOverlay = Bitmap.createBitmap(screenSize.x * 2,
-				screenSize.y * 2, Bitmap.Config.ARGB_8888);
+		Bitmap bmOverlay = Bitmap.createBitmap((int)screenSize.x * 2,
+				(int)screenSize.y * 2, Bitmap.Config.ARGB_8888);
 		Rect src = new Rect(0, 0, bmp.getWidth(), bmp.getHeight());
 		Canvas canvas = new Canvas(bmOverlay);
-		canvas.drawBitmap(bmp, src, new Rect(screenSize.x * 0,
-				screenSize.y * 0, screenSize.x * 1, screenSize.y * 1), null);
-		canvas.drawBitmap(bmp, src, new Rect(screenSize.x * 0,
-				screenSize.y * 1, screenSize.x * 1, screenSize.y * 2), null);
-		canvas.drawBitmap(bmp, src, new Rect(screenSize.x * 1,
-				screenSize.y * 0, screenSize.x * 2, screenSize.y * 1), null);
-		canvas.drawBitmap(bmp, src, new Rect(screenSize.x * 1,
-				screenSize.y * 1, screenSize.x * 2, screenSize.y * 2), null);
+		canvas.drawBitmap(bmp, src, new Rect((int)screenSize.x * 0,
+				(int)screenSize.y * 0, (int)screenSize.x * 1, (int)screenSize.y * 1), null);
+		canvas.drawBitmap(bmp, src, new Rect((int)screenSize.x * 0,
+				(int)screenSize.y * 1, (int)screenSize.x * 1, (int)screenSize.y * 2), null);
+		canvas.drawBitmap(bmp, src, new Rect((int)screenSize.x * 1,
+				(int)screenSize.y * 0, (int)screenSize.x * 2, (int)screenSize.y * 1), null);
+		canvas.drawBitmap(bmp, src, new Rect((int)screenSize.x * 1,
+				(int)screenSize.y * 1, (int)screenSize.x * 2, (int)screenSize.y * 2), null);
 		background = bmOverlay;
 	}
 
 	private void updateMapCenter(GameState gameState) {
 		Spaceship currentPlayerSpaceship = gameState.currentInstancePlayer.spaceship;
-		int x = (int) currentPlayerSpaceship.getPosition().getX();
-		int y = (int) currentPlayerSpaceship.getPosition().getY();
+		int x = (int) currentPlayerSpaceship.getPosition().x;
+		int y = (int) currentPlayerSpaceship.getPosition().y;
 
-		Point MARGIN = gameState.map.MARGIN;
-		mapCenter.x = updateMapCoord(mapCenter.x, screenSize.x, MARGIN.x, x);
-		mapCenter.y = updateMapCoord(mapCenter.y, screenSize.y, MARGIN.y, y);
+		DoublePoint MARGIN = gameState.map.MARGIN;
+		mapCenter.setX( updateMapCoord((int)mapCenter.x, (int)screenSize.x, (int)MARGIN.x, x) );
+		mapCenter.setY( updateMapCoord((int)mapCenter.y, (int)screenSize.y, (int)MARGIN.y, y) );
 	}
 
 	private void renderMap(Canvas canvas, GameState gameState) {
-		Point mapSize = gameState.map.size;
+		DoublePoint mapSize = gameState.map.size;
 		int left, top;
 
-		left = calculateRenderMapCoord(mapSize.x, mapCenter.x, screenSize.x);
-		top = calculateRenderMapCoord(mapSize.y, mapCenter.y, screenSize.y);
+		left = calculateRenderMapCoord((int)mapSize.x, (int)mapCenter.x, (int)screenSize.x);
+		top = calculateRenderMapCoord((int)mapSize.y, (int)mapCenter.y, (int)screenSize.y);
 
 		left %= background.getWidth() / 2;
 		top %= background.getHeight() / 2;
 
 		Rect src = new Rect(left, top, left + background.getWidth() / 2, top
 				+ background.getHeight() / 2);
-		Rect dst = new Rect(0, 0, screenSize.x, screenSize.y);
+		Rect dst = new Rect(0, 0, (int)screenSize.x, (int)screenSize.y);
 		canvas.drawBitmap(background, src, dst, null);
 	}
 

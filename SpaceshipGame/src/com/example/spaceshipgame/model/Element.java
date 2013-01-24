@@ -165,7 +165,7 @@ public class Element implements IJSONSerializable{
 			
 			JSONObject obj = new JSONObject();
 			obj.put("ID", this.ID);
-			obj.put("position", this.position);
+			obj.put("position", this.position.serialize());
 			obj.put("rotation", this.rotation);
 			obj.put("velocity", this.velocity);
 			obj.put("maxVelocityValue", this.maxVelocityValue);
@@ -180,7 +180,7 @@ public class Element implements IJSONSerializable{
 	public void deserialize(JSONObject obj) {
 		try {
 			
-			ID = obj.getInt("position");
+			ID = obj.getInt("ID");
 			position.deserialize(obj.getJSONObject("position"));
 			rotation = obj.getDouble("rotation");
 			velocity = obj.getDouble("velocity");

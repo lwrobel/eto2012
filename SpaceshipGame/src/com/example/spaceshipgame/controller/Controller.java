@@ -6,9 +6,13 @@ import com.example.spaceshipgame.model.*;
 import com.example.spaceshipgame.renderer.*;
 import com.example.spaceshipgame.server.ServerSide;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Build;
+import android.os.StrictMode;
+import android.util.Log;
 import android.widget.Toast;
 
 public class Controller {
@@ -25,7 +29,7 @@ public class Controller {
 				gameState);
 		signalReceiver = new SignalReceiver(this);
 		serverSide = new ServerSide(this, gameState);
-		serverSide.refreshState();
+		serverSide.start();	
 	}
 
 	public Activity getGameActivity() {

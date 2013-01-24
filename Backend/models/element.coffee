@@ -1,7 +1,7 @@
-[Vecotor] = require('./vector');
+[Vector] = require('./vector');
 
 class Element
-  constructor: (position) ->
+	constructor: (position) ->
 		@position = new Vector(position.x, position.y)
 		@velocity = new Vector(0,0) #to trzeba zmienić raczej ;P
 		@acceleration = 0.2

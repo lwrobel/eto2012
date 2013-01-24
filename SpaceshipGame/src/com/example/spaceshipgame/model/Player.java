@@ -23,7 +23,7 @@ public class Player implements IJSONSerializable{
 		this.colour = colour;
 		
        	elements.add(spaceship);
-       	elements.add(new Missile(this, map));
+       	//new Missile(this, map));
 	}
 	
 	public Spaceship getSpaceship() {
@@ -60,6 +60,7 @@ public class Player implements IJSONSerializable{
 	
 	public void deserialize(JSONObject obj) {
 		try {
+			ID = obj.getInt("ID");
 			spaceship.deserialize(obj.getJSONObject("spaceship"));
 			deserializeElements(obj.getJSONArray("missiles"));
 			colour.deserialize(obj.getJSONObject("colour"));

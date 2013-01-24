@@ -27,11 +27,11 @@ public class GameState implements IJSONSerializable {
 		currentInstancePlayer.setID(10);
 		players.add(currentInstancePlayer);
 
-		for (int i = 0; i < 10; ++i) {
+		/*for (int i = 0; i < 10; ++i) {
 			Player player = new Player(colourManager.getUniqueColourRGB(), map);
 			player.setID(i);
 			players.add(player);
-		}
+		}*/
 	}
 
 	public void deserialize(JSONObject obj) {
@@ -54,8 +54,20 @@ public class GameState implements IJSONSerializable {
 			}
 
 		for (Player player : this.players)
-			if (hashMap.containsKey(player.getID()))
+			if (hashMap.containsKey(player.getID())) {
 				player.deserialize(hashMap.get(player.getID()));
+				hashMap.remove(player.getID());
+			}
+		for (JSONObject jsonPlayer : hashMap.values()) {
+			try {
+				Log.d("new player",  jsonPlayer.toString());
+				Player player = new Player(new Colour(jsonPlayer.getJSONObject("colour").getInt("value")), new Map());
+				player.deserialize(jsonPlayer);
+				players.add(player);
+			}
+			catch (Exception e) {
+			}
+		}
 	}
 
 	public JSONObject serialize() {

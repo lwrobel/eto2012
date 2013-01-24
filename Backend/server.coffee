@@ -2,10 +2,28 @@ net = require('net')
 
 class GameServer
   constructor: ->
-    @HOST = '192.168.1.100' #use your local server ip
+    @HOST = '192.168.0.11' #use your local server ip
     @PORT = 6969
 
-    @gameState = {'aaa':'bbb', 'ccc':'ddd'} #TODO
+    @gameState = {
+      players: [
+          ID : 123
+          missiles : []
+          spaceship : 
+            ID : 100
+            position :
+              y : 100
+              x : 100
+            height : 300
+            width : 335
+            rotation : 320
+            acceleration : 0.5
+            maxVelocityValue : 20
+            velocity : 0
+          colour: 
+            value: 111
+      ]
+    }
 
     @server = net.createServer (socket) =>
       remoteAddress = socket.remoteAddress
@@ -17,6 +35,8 @@ class GameServer
         console.log("DATA #{remoteAddress}:#{data}")
         json = JSON.parse(data.toString())
         console.log(json)
+        @gameState.players[0].spaceship.position.x=Math.floor(Math.random()*500)
+        @gameState.players[0].spaceship.position.y=Math.floor(Math.random()*500)
         if json.type == 'get' and json.object == 'gameState'
           socket.write JSON.stringify {status: 'ok', object: 'gameState', data: @gameState}
         else

@@ -66,9 +66,11 @@ public class MainRenderer {
 		updateMapCenter(gameState);
 		renderMap(canvas, gameState);
 		for (Player player : gameState.players) {
+			ElementRenderer elementRenderer = elementRendererFactory
+					.getElementRenderer(player.spaceship);
+			elementRenderer.render(canvas, player.spaceship, mapCenter, screenSize);
 			for (Element element : player.elements) {
-				ElementRenderer elementRenderer = elementRendererFactory
-						.getElementRenderer(element);
+				elementRenderer = elementRendererFactory.getElementRenderer(element);
 				elementRenderer.render(canvas, element, mapCenter, screenSize);
 			}
 		}

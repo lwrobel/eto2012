@@ -24,7 +24,6 @@ public class GameState implements IJSONSerializable {
 		colourManager = new ColourManager();
 		currentInstancePlayer = new CurrentPlayer(
 				colourManager.getUniqueColourRGB(), map);
-		currentInstancePlayer.setID(10);
 		players.add(currentInstancePlayer);
 
 		/*for (int i = 0; i < 10; ++i) {
@@ -48,7 +47,8 @@ public class GameState implements IJSONSerializable {
 			try {
 				JSONObject player = playersJSON.getJSONObject(i);
 				int id = player.getInt("ID");
-				hashMap.put(id, player);
+				if (id!=currentInstancePlayer.getID())
+					hashMap.put(id, player);
 			} catch (Exception ex) {
 				Log.e("Exception", ex.getMessage());
 			}

@@ -1,6 +1,7 @@
 package com.example.spaceshipgame.model;
 
 import java.util.Date;
+import java.util.Random;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +18,7 @@ public class CurrentPlayer extends Player implements IJSONSerializable {
 		super(colour, map);
 		ammunitionLevel = new AmmunitionLevel();
 		lastAttackTime = new Date();
+	    setID(new Random().nextInt(1000000));
 	}
 
 	public int getLifeLevel() {
@@ -34,7 +36,7 @@ public class CurrentPlayer extends Player implements IJSONSerializable {
 	public JSONObject serialize() {
 		try {
 			JSONObject obj = super.serialize();
-			obj.put("moveState", moveState.serialize());
+			//obj.put("moveState", moveState.serialize());
 			return obj;
 		} catch (Exception ex) {
 			return null;

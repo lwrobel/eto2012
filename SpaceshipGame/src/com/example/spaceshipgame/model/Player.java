@@ -21,9 +21,6 @@ public class Player implements IJSONSerializable{
 		moveState = new MoveState();
 		spaceship = new Spaceship(this, map);
 		this.colour = colour;
-		
-       	elements.add(spaceship);
-       	//new Missile(this, map));
 	}
 	
 	public Spaceship getSpaceship() {
@@ -48,7 +45,7 @@ public class Player implements IJSONSerializable{
 			}
 		
 			obj.put("ID", this.ID);
-			obj.put("elements", elem);
+			obj.put("missiles", elem);
 			obj.put("spaceship", spaceship.serialize());
 			obj.put("colour", colour.serialize());
 			return obj;

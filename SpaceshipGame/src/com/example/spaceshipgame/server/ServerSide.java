@@ -2,6 +2,7 @@ package com.example.spaceshipgame.server;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.nio.CharBuffer;
@@ -16,6 +17,7 @@ import com.example.spaceshipgame.model.GameState;
 
 public class ServerSide extends Thread {
 	private Controller			controller;
+	private GameState			gameState;
 	private static int			port	= 6969;
 	private static String		host	= "192.168.0.11";	// use your local
 															// server ip
@@ -25,6 +27,7 @@ public class ServerSide extends Thread {
 
 	public ServerSide(Controller controller, GameState gameState) {
 		this.controller = controller;
+		this.gameState = gameState;
 	}
 
 	@Override
@@ -41,9 +44,15 @@ public class ServerSide extends Thread {
 			long newTime = new Date().getTime();
 			if (newTime - lastTime >= 20) {
 				lastTime = newTime;
-				JSONObject json = getGameState();
 				try {
-					//Log.d("aaaaaa", json.toString());
+					JSONObject json = new JSONObject();
+					json.put("type", "put");
+					json.put("object", "currentInstancePlayer");
+					json.put("data",
+							gameState.currentInstancePlayer.serialize());
+					out.writeBytes(json.toString());
+
+					json = getGameState();
 					if (json == null)
 						Log.d("game-json", "null");
 					else if (!json.getString("status").equals("ok"))
@@ -52,14 +61,10 @@ public class ServerSide extends Thread {
 						controller.deserializeState(json.getJSONObject("data"));
 					else
 						Log.d("game-json", json.toString());
-				} catch (Exception e) {
-					Log.d("Exception", e.toString());
-				}
-			}
-			else {
-	            try {
+
 					Thread.sleep(10);
-				} catch (InterruptedException e) {
+				} catch (Exception e) {
+					Log.d("error", e.toString());
 				}
 			}
 		}

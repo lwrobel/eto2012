@@ -7,17 +7,24 @@ import android.app.Activity;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
-
+	Controller controller;
+	
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
+    public void onStart() {
+		super.onStart();
+
         setContentView(R.layout.activity_main);
-        Controller controller = new Controller(this);
+        controller = new Controller(this);
         GameView gameView = (GameView) findViewById(R.id.gameView);
         gameView.setController(controller);
     }
 
+    @Override
+    public void onStop() {
+    	super.onStop();
+    	controller.onStop();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);

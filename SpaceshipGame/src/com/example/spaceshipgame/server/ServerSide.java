@@ -24,12 +24,18 @@ public class ServerSide extends Thread {
 	private Socket				skt;
 	private BufferedReader		in;
 	private DataOutputStream	out;
-
+	private boolean mrun;
+	
 	public ServerSide(Controller controller, GameState gameState) {
 		this.controller = controller;
 		this.gameState = gameState;
+		this.mrun = true;
 	}
 
+	public void stopServer() {
+		mrun = false;
+	}
+	
 	@Override
 	public void run() {
 		try {
@@ -40,7 +46,7 @@ public class ServerSide extends Thread {
 			Log.d("error", e.toString());
 		}
 		long lastTime = new Date().getTime();
-		while (true) {
+		while (mrun) {
 			long newTime = new Date().getTime();
 			if (newTime - lastTime >= 20) {
 				lastTime = newTime;
@@ -67,6 +73,10 @@ public class ServerSide extends Thread {
 					Log.d("error", e.toString());
 				}
 			}
+		}
+		try {
+			skt.close();
+		} catch (IOException e) {
 		}
 	}
 

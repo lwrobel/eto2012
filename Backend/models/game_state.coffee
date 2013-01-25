@@ -11,6 +11,9 @@ class GameState
     }
     data
 
+  removePlayer: (ID) =>
+    delete @players[ID]
+
   updatePlayer: (player) =>
     @players[player.ID] = player
 

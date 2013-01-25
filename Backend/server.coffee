@@ -6,6 +6,7 @@ class GameServer
     @HOST = '192.168.0.11' #use your local server ip
     @PORT = 6969
     @gameState = new GameState()
+    @client={}
 
     @server = net.createServer (socket) =>
       remoteAddress = socket.remoteAddress
@@ -22,6 +23,7 @@ class GameServer
             socket.write JSON.stringify {status: 'ok', object: 'gameState', data: @gameState.json()}
           else if json.type == 'put' and json.object == 'currentInstancePlayer'
             console.log 'put currentInstancePlayer'
+            @client[remoteAddress]=json.data.ID
             @gameState.updatePlayer(json.data)
           else
             console.log 'error'
@@ -32,6 +34,7 @@ class GameServer
 
       socket.on 'close', (data) =>
         console.log("CLOSED: #{remoteAddress}:#{remotePORT}")
+        @gameState.removePlayer(@client[remoteAddress])
 
   listen: =>
     console.log("Server listening on #{@HOST}:#{@PORT}")

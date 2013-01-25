@@ -28,6 +28,7 @@ public class Element implements IJSONSerializable{
 		rotation = r.nextInt(360);
 		acceleration = 0.5;
 		maxVelocityValue = 20.0;
+		setID(new Random().nextInt(1000000));
 	}
 
 	public Element(DoublePoint newPosition) {

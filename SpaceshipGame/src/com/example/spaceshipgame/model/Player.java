@@ -80,5 +80,18 @@ public class Player implements IJSONSerializable{
 		for (Element element : elements)
 			if (hashMap.containsKey(element.getID()))
 				element.deserialize(hashMap.get(element.getID()));
+			else
+				elements.remove(element);
+		
+		for (JSONObject jsonMissile : hashMap.values()) {
+			try {
+				Missile missile = new Missile(this, new Map());
+				missile.deserialize(jsonMissile);
+				elements.add(missile);
+			} catch (Exception e) {
+			}
+		}
+		
+		
 	}
 }

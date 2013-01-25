@@ -19,17 +19,18 @@ public class ServerSide extends Thread {
 	private Controller			controller;
 	private GameState			gameState;
 	private static int			port	= 6969;
-	private static String		host	= "192.168.0.11";	// use your local
+	private static String		host;
 															// server ip
 	private Socket				skt;
 	private BufferedReader		in;
 	private DataOutputStream	out;
 	private boolean mrun;
 	
-	public ServerSide(Controller controller, GameState gameState) {
+	public ServerSide(Controller controller, GameState gameState, String host) {
 		this.controller = controller;
 		this.gameState = gameState;
 		this.mrun = true;
+		this.host = host;
 	}
 
 	public void stopServer() {

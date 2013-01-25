@@ -9,5 +9,7 @@
     <string name="button_right">right</string>
     <string name="button_down">down</string>
     <string name="button_attack">attack</string>
+    <string name="button_start">Start</string>
+    <string name="server">Adres serwera</string>
 
 </resources>

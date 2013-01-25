@@ -22,13 +22,14 @@ public class Controller {
 	private Activity		gameActivity;
 	private ServerSide		serverSide;
 
-	public Controller(Activity activity) {
+	public Controller(Activity activity, String host) {
 		gameActivity = activity;
 		gameState = new GameState(gameActivity);
 		mainRenderer = new MainRenderer(getGameContext(), getGameActivity(),
 				gameState);
 		signalReceiver = new SignalReceiver(this);
-		serverSide = new ServerSide(this, gameState);
+		serverSide = new ServerSide(this, gameState, host);
+		//Log.d("aaa", host);
 		serverSide.start();
 	}
 
